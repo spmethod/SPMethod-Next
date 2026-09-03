@@ -87,16 +87,6 @@ export const t = {
         { title: 'Results That Last',         desc: 'Habits and knowledge you keep long after the programme ends.' },
       ],
     },
-    expect: {
-      label: 'What to Expect',
-      heading: 'No Guesswork.',
-      headingHighlight: 'Just Results.',
-      items: [
-        { title: 'Who Is This For?',     body: 'Any age, any gender. Motivated people ready to transform their body, train injury-free, or rebuild their health. No prerequisites — commitment is the only requirement.' },
-        { title: 'Where We Train',       body: 'In-person training and home sessions in Vienna, Austria. Online coaching available for clients anywhere in the world — the same quality, the same results, just delivered differently.' },
-        { title: 'My Coaching Style',    body: 'Honest, direct, and accountable. Some call it motivating. Others call it strict. You\'ll always get a straight answer — because that\'s the only way to actually get results.' },
-      ],
-    },
     booking: {
       label: 'Free Consultation',
       heading: 'Book Your Free',
@@ -269,16 +259,6 @@ export const t = {
         { title: 'Ehrliches Feedback',        desc: 'Kein Schönreden. Du weißt immer, wo du stehst und was sich ändern muss.' },
         { title: 'Verletzungssicheres Training', desc: 'Aufgebaut auf langfristige Gesundheit — nicht nur kurzfristige Ergebnisse.' },
         { title: 'Nachhaltige Resultate',     desc: 'Gewohnheiten und Wissen, die du lange nach dem Programm behältst.' },
-      ],
-    },
-    expect: {
-      label: 'Was dich erwartet',
-      heading: 'Kein Rätselraten.',
-      headingHighlight: 'Nur Ergebnisse.',
-      items: [
-        { title: 'Für wen ist das?',        body: 'Egal wie alt du bist oder wie viel Erfahrung du hast. Wichtig ist nur dass du wirklich was verändern willst — das reicht.' },
-        { title: 'Wo trainieren wir?',      body: 'Persönliches Training in Wien, auch bei dir zuhause. Für alle anderen gibt\'s Online Coaching — gleiche Qualität, egal wo du bist.' },
-        { title: 'Mein Coaching-Stil',      body: 'Ich bin direkt und sag dir was Sache ist. Manche finden das motivierend, anderen ist es zu direkt. Aber wenn du ehrliche Antworten willst — dann bist du hier richtig.' },
       ],
     },
     booking: {
