@@ -3,7 +3,6 @@ import StatsBar             from '@/components/sections/StatsBar'
 import SpecialtiesSection   from '@/components/sections/SpecialtiesSection'
 import ProgressSection      from '@/components/sections/ProgressSection'
 import PricingSection       from '@/components/sections/PricingSection'
-import ShowcaseSection      from '@/components/sections/ShowcaseSection'
 import CoachingStyleSection from '@/components/sections/CoachingStyleSection'
 import BookingSection       from '@/components/sections/BookingSection'
 
@@ -15,7 +14,6 @@ export default function HomePage() {
       <SpecialtiesSection />
       <ProgressSection />
       <PricingSection />
-      <ShowcaseSection />
       <CoachingStyleSection />
       <BookingSection />
     </>

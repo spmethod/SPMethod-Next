@@ -2,6 +2,7 @@
 
 import { useRef, useEffect, useState } from 'react'
 import { motion, useInView, useReducedMotion } from 'framer-motion'
+import { useLang } from '@/context/LanguageContext'
 
 // Data points simulating a client's fitness progress over weeks
 const progressPoints = [
@@ -84,6 +85,8 @@ export default function ProgressSection() {
   const ref = useRef<HTMLDivElement>(null)
   const inView = useInView(ref, { once: true, margin: '-80px' })
   const prefersReduced = useReducedMotion()
+  const { tr } = useLang()
+  const p = tr.progress
 
   const weightCoords   = toSVGCoords(progressPoints.map(p => ({ week: p.week, value: p.weight })),   70, 92)
   const strengthCoords = toSVGCoords(progressPoints.map(p => ({ week: p.week, value: p.strength })), 10, 100)
@@ -108,12 +111,12 @@ export default function ProgressSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <p className="text-[#F59E0B] text-xs font-semibold uppercase tracking-widest mb-3 font-body">Typical Client Journey</p>
+          <p className="text-[#F59E0B] text-xs font-semibold uppercase tracking-widest mb-3 font-body">{p.label}</p>
           <h2 className="font-heading font-bold text-3xl md:text-4xl text-white tracking-tight">
-            Progress That You Can <span className="text-[#F59E0B]">See</span>
+            {p.heading} <span className="text-[#F59E0B]">{p.headingHighlight}</span>
           </h2>
           <p className="mt-3 text-[#888888] font-body text-sm max-w-md mx-auto leading-relaxed">
-            A real-world snapshot  -  weight dropping, strength climbing. Week by week.
+            {p.body}
           </p>
         </motion.div>
 
@@ -226,18 +229,13 @@ export default function ProgressSection() {
 
           {/* Bottom label */}
           <p className="mt-4 text-center text-[#888888]/40 text-[10px] font-body uppercase tracking-widest">
-            Example 12-week transformation · Individual results vary
+            {p.disclaimer}
           </p>
         </motion.div>
 
         {/* Stat callouts */}
         <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4">
-          {[
-            { value: '−13 kg', label: 'Average weight lost' },
-            { value: '+68%',   label: 'Strength increase'   },
-            { value: '12 wk',  label: 'Program duration'    },
-            { value: '100%',   label: 'Personalised plan'   },
-          ].map((stat, i) => (
+          {p.stats.map((stat, i) => (
             <motion.div
               key={stat.label}
               initial={{ opacity: 0, y: 20 }}
