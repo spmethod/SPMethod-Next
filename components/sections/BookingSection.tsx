@@ -24,6 +24,8 @@ export default function BookingSection() {
   const [data, setData] = useState<FormData>({
     name: '', email: '', phone: '', goal: '', format: '',
   })
+  const [customGoal, setCustomGoal] = useState('')
+  const isCustomGoal = data.goal === b.goals[b.goals.length - 1]
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -42,7 +44,7 @@ export default function BookingSection() {
           name: data.name,
           email: data.email,
           phone: data.phone,
-          goal: data.goal,
+          goal: isCustomGoal ? customGoal : data.goal,
           format: data.format,
           subject: 'New Coaching Request - SPMethod',
         }),
@@ -188,6 +190,16 @@ export default function BookingSection() {
                       <option key={g} value={g} className="bg-[#1a1a1a]">{g}</option>
                     ))}
                   </select>
+                  {isCustomGoal && (
+                    <input
+                      type="text"
+                      required
+                      value={customGoal}
+                      onChange={(e) => setCustomGoal(e.target.value)}
+                      placeholder={b.customGoalPlaceholder}
+                      className={`${inputBase} mt-2`}
+                    />
+                  )}
                 </div>
 
                 {/* Format */}
