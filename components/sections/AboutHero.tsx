@@ -1,7 +1,7 @@
 'use client'
 
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
-import { User } from 'lucide-react'
+import Image from 'next/image'
 import DumbbellIcon from '@/components/icons/DumbbellIcon'
 import { useScrollRotation } from '@/hooks/useScrollRotation'
 import Link from 'next/link'
@@ -176,16 +176,17 @@ export default function AboutHero() {
           className="relative"
         >
           <div className="absolute -left-4 top-8 bottom-8 w-0.5 bg-gradient-to-b from-transparent via-[#F59E0B] to-transparent rounded-full" />
-          <div className="relative aspect-[3/4] max-w-md mx-auto lg:ml-auto rounded-2xl overflow-hidden border border-white/[0.08] bg-gradient-to-br from-[#1a1a1a] to-[#111111]">
-            <div className="absolute top-4 right-4 w-8 h-8 border-t-2 border-r-2 border-[#F59E0B] rounded-tr-lg" />
-            <div className="absolute bottom-4 left-4 w-8 h-8 border-b-2 border-l-2 border-[#F59E0B] rounded-bl-lg" />
-            <div className="absolute inset-0 flex flex-col items-center justify-center gap-4">
-              <div className="w-24 h-24 rounded-full bg-white/[0.06] flex items-center justify-center">
-                <User size={48} className="text-white/20" />
-              </div>
-              <p className="text-white/20 text-xs font-body tracking-widest uppercase">Nick Spartalis</p>
-            </div>
-            <div className="absolute inset-0 bg-gradient-to-t from-[#F59E0B]/[0.06] via-transparent to-transparent pointer-events-none" />
+          <div className="relative aspect-[3/4] max-w-md mx-auto lg:ml-auto rounded-2xl overflow-hidden border border-white/[0.08]">
+            <div className="absolute top-4 right-4 w-8 h-8 border-t-2 border-r-2 border-[#F59E0B] rounded-tr-lg z-10" />
+            <div className="absolute bottom-4 left-4 w-8 h-8 border-b-2 border-l-2 border-[#F59E0B] rounded-bl-lg z-10" />
+            <Image
+              src="/nick-pfp.png"
+              alt="Nick Spartalis"
+              fill
+              className="object-cover object-top"
+              priority
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#F59E0B]/[0.06] via-transparent to-transparent pointer-events-none z-10" />
           </div>
           <div className="absolute -bottom-4 right-0 bg-[#F59E0B] text-black rounded-xl px-4 py-2.5 shadow-[0_0_30px_rgba(245,158,11,0.45)]">
             <p className="font-heading font-bold text-xs uppercase tracking-wide">{tr.aboutHero.certBadge}</p>
