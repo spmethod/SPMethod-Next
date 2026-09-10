@@ -16,6 +16,7 @@ export default function PricingSection() {
       price: p.planPrice,
       highlight: false,
       badge: null,
+      note: null,
     },
     {
       label: p.sessionLabel,
@@ -23,6 +24,7 @@ export default function PricingSection() {
       price: p.sessionPrice,
       highlight: false,
       badge: null,
+      note: p.sessionNote,
     },
     {
       label: p.week6Label,
@@ -30,6 +32,7 @@ export default function PricingSection() {
       price: p.programPrice75,
       highlight: true,
       badge: p.allInclusive,
+      note: null,
     },
     {
       label: p.week8Label,
@@ -37,6 +40,7 @@ export default function PricingSection() {
       price: p.programPrice75,
       highlight: true,
       badge: p.allInclusive,
+      note: null,
     },
     {
       label: p.extraLabel,
@@ -44,6 +48,7 @@ export default function PricingSection() {
       price: p.programPrice70,
       highlight: true,
       badge: p.allInclusive,
+      note: null,
     },
   ]
 
@@ -91,6 +96,11 @@ export default function PricingSection() {
                   {row.badge && (
                     <span className="px-2 py-0.5 rounded-full bg-[#F59E0B]/10 text-[#F59E0B] text-[10px] font-semibold font-body border border-[#F59E0B]/20 uppercase tracking-wide">
                       {row.badge}
+                    </span>
+                  )}
+                  {row.note && (
+                    <span className="px-2 py-0.5 rounded-full bg-white/[0.05] text-[#666666] text-[10px] font-medium font-body border border-white/[0.08]">
+                      {row.note}
                     </span>
                   )}
                 </div>
