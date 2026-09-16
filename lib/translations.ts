@@ -117,7 +117,7 @@ export const t = {
       tagline: '"Built on setbacks. Driven by results."',
       nav: 'Navigation',
       follow: 'Follow',
-      callUs: 'Call Us',
+      callUs: 'Call Me',
       rights: '© 2025 SPMethod by Nick Spartalis. All rights reserved.',
     },
     aboutHero: {
@@ -293,7 +293,7 @@ export const t = {
       tagline: '„Aufgebaut auf Rückschlägen. Angetrieben von Ergebnissen."',
       nav: 'Navigation',
       follow: 'Folge uns',
-      callUs: 'Ruf uns an',
+      callUs: 'Ruf mich an',
       rights: '© 2025 SPMethod by Nick Spartalis. Alle Rechte vorbehalten.',
     },
     aboutHero: {
