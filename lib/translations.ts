@@ -264,7 +264,7 @@ export const t = {
       ],
     },
     booking: {
-      label: 'Kostenlose Beratung',
+      label: 'Buche dein Training',
       heading: 'Deine kostenlose',
       headingHighlight: 'Beratung.',
       body: 'Begrenzte Plätze für Vor-Ort-Training in Wien verfügbar.',
