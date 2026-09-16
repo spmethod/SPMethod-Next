@@ -333,12 +333,12 @@ export const t = {
         { n: '3',  lbl: 'Bereiche gemeistert' },
       ],
       paragraphs: [
-        `Hi, mein Name ist Nick Spartalis - willkommen bei SPMethod. Ich bin 22 Jahre alt und trainiere seit etwa 9 Jahren. Ich fing mit null Wissen an, also suchte meine Mutter für mich einen Personal Trainer - einen ehemaligen russischen Olympia-Gewichtheber.`,
-        `Ich hab natürlich alles geglaubt was er mir gesagt hat. Nach ein paar Monaten ist er einfach weg — kein Wort, kein Abschied. Was ich damals nicht wusste: Fast alles was er mir beigebracht hatte, war falsch. Das hab ich erst nach Jahren gemerkt — und da war der Schaden schon längst angerichtet.`,
-        `Ich hatte mir an mehreren Stellen Verletzungen geholt, mit denen ich bis heute kämpfe. Aber statt aufzugeben hab ich angefangen, alles selbst zu recherchieren — wie Training und Ernährung wirklich funktionieren, um die beste Version von sich selbst zu werden, ohne den Körper dabei zu ruinieren.`,
-        `Irgendwann hab ich mir gedacht: Warum nutze ich nicht alles was ich gelernt hab, damit anderen nicht das gleiche passiert wie mir? Also hab ich die Ausbildung zum Personal Trainer gemacht, mein Zertifikat geholt — und SPMethod war geboren.`,
+        `Hallo, mein Name ist Nick Spartalis. Willkommen bei SPMethod. Ich bin 22 Jahre alt und habe vor etwa 9 Jahren mit dem Training begonnen. Als ich begonnen habe hatte ich überhaupt keine Vorkenntnisse gehabt, also hat meine Mutter mir meinen ersten Personal Trainer gefunden, einen ehemaligen russischen Olympia-Gewichtheber.`,
+        `Natürlich glaubte ich alles, was er gesagt hat. Als wir Monate zusammen gearbeitet haben, verschwand er ohne ein Wort. Was ich damals nicht wusste, war, dass fast alles, was er mir beigebracht hat, falsch war. Es hat Jahre gedauert bis ich verstanden habe, was er mir überhaupt gezeigt hat. Durch Selbstrecherche habe ich endlich verstanden, wieso ich so viele Verletzungen bekommen habe.`,
+        `Ich hatte mir an mehreren Stellen meines Körpers Muskelverletzungen, mit denen ich bis heute zu kämpfen habe. Diese Erfahrung wurde zum Wendepunkt. Anstatt mich vom Krafttraining abzuwenden, habe ich diese Frustration in jahrelange, intensive und eigenständige Trainingslehre investiert. Ich habe recherchiert, wie man so trainiert und sich so ernährt, dass man tatsächlich die beste Version von sich selbst wird, ohne dabei den Körper zu ruinieren.`,
+        `Irgendwann fragte ich mich: Warum sollte ich nicht alles, was ich gelernt habe, nutzen, um anderen zu helfen, genau das zu vermeiden, was mir passiert ist? Also habe ich auch das gemacht. Ich habe meine Ausbildung zum Personal Trainer abgeschlossen, wurde zertifizierter Personal Trainer, und so entstand die SPMethod.`,
       ],
-      pullQuote: `„Warum nicht alles was ich gelernt hab nutzen, damit anderen nicht das gleiche passiert wie mir?"`,
+      pullQuote: `„Warum sollte ich nicht alles, was ich gelernt habe, nutzen, um anderen zu helfen, genau das zu vermeiden, was mir passiert ist?"`,
     },
     aboutCta: {
       label: 'Lass uns loslegen',
