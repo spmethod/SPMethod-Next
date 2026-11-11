@@ -18,7 +18,7 @@ const ROWS = [
 
 const FEATURES = [
   '10 weeks of programming',
-  '6 training days / week',
+  'Training days tailored to you',
   'Deload week included',
   'Personalised diet plan',
   'Week-by-week strength tracking',
