@@ -40,7 +40,7 @@ export default function PricingSection() {
       price: p.programPrice75,
       highlight: true,
       badge: p.allInclusive,
-      note: null,
+      note: p.nutritionNote,
     },
     {
       label: p.extraLabel,
@@ -48,6 +48,14 @@ export default function PricingSection() {
       price: p.programPrice70,
       highlight: true,
       badge: p.allInclusive,
+      note: null,
+    },
+    {
+      label: p.nutritionLabel,
+      freq: p.nutritionFreq,
+      price: p.nutritionPrice,
+      highlight: false,
+      badge: null,
       note: null,
     },
   ]
