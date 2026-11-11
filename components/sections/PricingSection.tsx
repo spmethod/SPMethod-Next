@@ -9,46 +9,25 @@ export default function PricingSection() {
   const { tr } = useLang()
   const p = tr.pricing
 
-  const rows = [
+  type Row = { label: string; freq: string; price: string; unit: string | null; highlight: boolean; badge: string | null }
+
+  const groups: { title: string; rows: Row[] }[] = [
     {
-      label: p.planLabel,
-      freq: p.planFreq,
-      price: p.planPrice,
-      highlight: false,
-      badge: null,
-      note: null,
+      title: p.groupTraining,
+      rows: [
+        { label: p.program1xLabel, freq: p.program1xTotals, price: p.programPrice1x, unit: p.perWeek, highlight: true,  badge: p.allInclusive },
+        { label: p.program2xLabel, freq: p.program2xTotals, price: p.programPrice2x, unit: p.perWeek, highlight: true,  badge: p.allInclusive },
+        { label: p.sessionLabel,   freq: p.sessionFreq,     price: p.sessionPrice,   unit: null,      highlight: false, badge: null },
+        { label: p.planLabel,      freq: p.planFreq,        price: p.planPrice,      unit: null,      highlight: false, badge: null },
+        { label: p.dietPlanLabel,  freq: p.dietPlanFreq,    price: p.dietPlanPrice,  unit: null,      highlight: false, badge: null },
+      ],
     },
     {
-      label: p.sessionLabel,
-      freq: p.sessionFreq,
-      price: p.sessionPrice,
-      highlight: false,
-      badge: null,
-      note: p.sessionNote,
-    },
-    {
-      label: p.week6Label,
-      freq: p.programFreq1x,
-      price: p.programPrice75,
-      highlight: true,
-      badge: p.allInclusive,
-      note: null,
-    },
-    {
-      label: p.week8Label,
-      freq: p.programFreq1x,
-      price: p.programPrice75,
-      highlight: true,
-      badge: p.allInclusive,
-      note: null,
-    },
-    {
-      label: p.extraLabel,
-      freq: p.programFreq2x,
-      price: p.programPrice70,
-      highlight: true,
-      badge: p.allInclusive,
-      note: null,
+      title: p.groupNutrition,
+      rows: [
+        { label: p.nutritionAddonLabel, freq: p.nutritionAddonFreq, price: p.nutritionAddonPrice, unit: p.perWeek, highlight: true,  badge: null },
+        { label: p.nutritionOnlyLabel,  freq: p.nutritionOnlyFreq,  price: p.nutritionOnlyPrice,  unit: p.perWeek, highlight: false, badge: null },
+      ],
     },
   ]
 
@@ -75,43 +54,72 @@ export default function PricingSection() {
           </p>
         </motion.div>
 
-        {/* Pricing rows */}
+        {/* Featured bundle */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.55, delay: 0.1 }}
-          className="rounded-2xl border border-white/[0.08] overflow-hidden mb-8"
+          transition={{ duration: 0.55, delay: 0.05 }}
+          className="relative rounded-2xl border border-[#F59E0B]/40 bg-gradient-to-br from-[#1c1608] to-[#141410] p-6 md:p-7 mb-6 shadow-[0_0_40px_rgba(245,158,11,0.08)]"
         >
-          {rows.map((row, i) => (
-            <div
-              key={i}
-              className={`flex items-center justify-between gap-4 px-6 py-5 ${
-                i !== rows.length - 1 ? 'border-b border-white/[0.06]' : ''
-              } ${row.highlight ? 'bg-[#141410]' : 'bg-[#141414]'}`}
-            >
-              <div className="flex flex-col gap-1 min-w-0">
-                <div className="flex items-center gap-2 flex-wrap">
-                  <span className="font-body font-medium text-white text-sm">{row.label}</span>
-                  {row.badge && (
-                    <span className="px-2 py-0.5 rounded-full bg-[#F59E0B]/10 text-[#F59E0B] text-[10px] font-semibold font-body border border-[#F59E0B]/20 uppercase tracking-wide">
-                      {row.badge}
-                    </span>
-                  )}
-                  {row.note && (
-                    <span className="px-2 py-0.5 rounded-full bg-white/[0.05] text-[#666666] text-[10px] font-medium font-body border border-white/[0.08]">
-                      {row.note}
-                    </span>
-                  )}
-                </div>
-                <span className="text-[#666666] font-body text-xs">{row.freq}</span>
-              </div>
-              <span className={`font-heading font-bold text-xl whitespace-nowrap flex-shrink-0 ${row.highlight ? 'text-[#F59E0B]' : 'text-white'}`}>
-                {row.price}
-              </span>
+          <span className="inline-block mb-3 px-2.5 py-1 rounded-full bg-[#F59E0B] text-black text-[10px] font-bold font-body uppercase tracking-wider">
+            {p.featuredBadge}
+          </span>
+          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+            <div className="min-w-0">
+              <h3 className="font-heading font-bold text-2xl text-white mb-1.5">{p.featuredLabel}</h3>
+              <p className="text-[#a3a3a3] font-body text-sm leading-relaxed max-w-sm">{p.featuredDesc}</p>
             </div>
-          ))}
+            <div className="sm:text-right flex-shrink-0">
+              <p className="font-heading font-bold text-[#F59E0B] whitespace-nowrap">
+                <span className="text-4xl">{p.featuredPrice}</span>
+                <span className="text-base text-[#F59E0B]/70">{p.perWeek}</span>
+              </p>
+              <p className="text-[#888888] font-body text-xs mt-1">{p.featuredTotals}</p>
+            </div>
+          </div>
         </motion.div>
+
+        {/* Pricing groups */}
+        {groups.map((group, g) => (
+          <motion.div
+            key={group.title}
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.55, delay: 0.1 + g * 0.05 }}
+            className="mb-6"
+          >
+            <p className="text-[#666666] text-[11px] font-semibold uppercase tracking-widest mb-2.5 px-1 font-body">{group.title}</p>
+            <div className="rounded-2xl border border-white/[0.08] overflow-hidden">
+              {group.rows.map((row, i) => (
+                <div
+                  key={row.label}
+                  className={`flex items-center justify-between gap-4 px-5 sm:px-6 py-5 ${
+                    i !== group.rows.length - 1 ? 'border-b border-white/[0.06]' : ''
+                  } ${row.highlight ? 'bg-[#141410]' : 'bg-[#141414]'}`}
+                >
+                  <div className="flex flex-col gap-1 min-w-0">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <span className="font-body font-medium text-white text-sm">{row.label}</span>
+                      {row.badge && (
+                        <span className="px-2 py-0.5 rounded-full bg-[#F59E0B]/10 text-[#F59E0B] text-[10px] font-semibold font-body border border-[#F59E0B]/20 uppercase tracking-wide">
+                          {row.badge}
+                        </span>
+                      )}
+                    </div>
+                    <span className="text-[#666666] font-body text-xs">{row.freq}</span>
+                  </div>
+                  <span className={`font-heading font-bold whitespace-nowrap flex-shrink-0 ${row.highlight ? 'text-[#F59E0B]' : 'text-white'}`}>
+                    <span className="text-xl">{row.price}</span>
+                    {row.unit && <span className="text-xs opacity-60">{row.unit}</span>}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        ))}
+        <div className="mb-2" />
 
         {/* Info boxes */}
         <motion.div
@@ -126,6 +134,13 @@ export default function PricingSection() {
             <div>
               <p className="text-white font-body text-xs font-semibold mb-1">{p.allInclusiveTitle}</p>
               <p className="text-[#888888] font-body text-xs leading-relaxed">{p.allInclusiveBody}</p>
+            </div>
+          </div>
+          <div className="flex gap-3 p-4 rounded-xl bg-[#1a1a1a] border border-white/[0.06]">
+            <Info size={15} className="text-[#F59E0B] flex-shrink-0 mt-0.5" />
+            <div>
+              <p className="text-white font-body text-xs font-semibold mb-1">{p.nutritionInfoTitle}</p>
+              <p className="text-[#888888] font-body text-xs leading-relaxed">{p.nutritionInfoBody}</p>
             </div>
           </div>
           <div className="flex gap-3 p-4 rounded-xl bg-[#1a1a1a] border border-white/[0.06]">
