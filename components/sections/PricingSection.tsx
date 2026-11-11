@@ -19,7 +19,6 @@ export default function PricingSection() {
         { label: p.program2xLabel, freq: p.program2xTotals, price: p.programPrice2x, unit: p.perWeek, highlight: true,  badge: p.allInclusive },
         { label: p.sessionLabel,   freq: p.sessionFreq,     price: p.sessionPrice,   unit: null,      highlight: false, badge: null },
         { label: p.planLabel,      freq: p.planFreq,        price: p.planPrice,      unit: null,      highlight: false, badge: null },
-        { label: p.dietPlanLabel,  freq: p.dietPlanFreq,    price: p.dietPlanPrice,  unit: null,      highlight: false, badge: null },
       ],
     },
     {
