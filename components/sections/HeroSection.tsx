@@ -3,7 +3,6 @@
 import { motion, useReducedMotion } from 'framer-motion'
 import Link from 'next/link'
 import { ArrowRight, ChevronDown } from 'lucide-react'
-import DumbbellExplosion from '@/components/DumbbellExplosion'
 import { useLang } from '@/context/LanguageContext'
 
 const containerVariants = {
@@ -24,40 +23,14 @@ export default function HeroSection() {
       id="home"
       className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-[#0a0a0a] pt-16"
     >
-      {/* Sunset glow — orange top, blue bottom */}
+      {/* Subtle ambient glow */}
       <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[500px] rounded-full bg-[#F97316] opacity-[0.07] blur-[130px]" />
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] rounded-full bg-[#0EA5E9] opacity-[0.06] blur-[120px]" />
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[400px] rounded-full bg-[#F59E0B] opacity-[0.04] blur-[140px]" />
       </div>
-
-      {/* Grid overlay */}
-      <div
-        className="pointer-events-none absolute inset-0 opacity-[0.025]"
-        style={{
-          backgroundImage:
-            'linear-gradient(rgba(245,158,11,1) 1px, transparent 1px), linear-gradient(90deg, rgba(245,158,11,1) 1px, transparent 1px)',
-          backgroundSize: '60px 60px',
-          maskImage:
-            'radial-gradient(ellipse 80% 80% at 50% 50%, black 10%, transparent 100%)',
-          WebkitMaskImage:
-            'radial-gradient(ellipse 80% 80% at 50% 50%, black 10%, transparent 100%)',
-        }}
-        aria-hidden="true"
-      />
-
-      {/* â”€â”€ DUMBBELL EXPLOSION CANVAS â”€â”€ */}
-      <DumbbellExplosion />
 
       {/* Main text content */}
       <div className="relative z-10 text-center px-6 max-w-6xl mx-auto">
         <motion.div variants={containerVariants} initial="hidden" animate="visible">
-
-          <motion.div variants={lineVariants} className="mb-6 flex justify-center">
-            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#F59E0B]/25 bg-[#F59E0B]/[0.07] text-[#F59E0B] text-xs font-semibold tracking-widest uppercase">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#F59E0B] animate-pulse" />
-              {tr.hero.badge}
-            </span>
-          </motion.div>
 
           <motion.h1
             variants={lineVariants}
@@ -116,6 +89,3 @@ export default function HeroSection() {
     </section>
   )
 }
-
-
-

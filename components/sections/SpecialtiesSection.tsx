@@ -1,15 +1,7 @@
 'use client'
 
-import { motion, useReducedMotion } from 'framer-motion'
-import { TrendingDown, Dumbbell } from 'lucide-react'
-import BarbellIcon from '@/components/icons/BarbellIcon'
-import { useScrollDrift } from '@/hooks/useScrollRotation'
+import { motion } from 'framer-motion'
 import { useLang } from '@/context/LanguageContext'
-
-const icons = [
-  <TrendingDown key="td" size={32} className="text-[#F59E0B]" />,
-  <Dumbbell key="db" size={32} className="text-[#F59E0B]" />,
-]
 
 const tagsByItem = [
   ['Fat Loss', 'Nutrition', 'Recomposition'],
@@ -17,21 +9,11 @@ const tagsByItem = [
 ]
 
 export default function SpecialtiesSection() {
-  const prefersReduced = useReducedMotion()
-  const barbellX = useScrollDrift([400, 3000], [-120, 80])
   const { tr } = useLang()
   const s = tr.specialties
 
   return (
     <section id="specialties" className="relative overflow-hidden bg-[#0a0a0a] py-28">
-      <motion.div
-        className="pointer-events-none absolute top-1/2 -left-20 -translate-y-1/2 opacity-[0.06] text-white"
-        style={{ x: prefersReduced ? 0 : barbellX }}
-        aria-hidden="true"
-      >
-        <BarbellIcon className="w-[700px] h-auto" />
-      </motion.div>
-
       <div className="relative z-10 max-w-7xl mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 32 }}
@@ -58,13 +40,8 @@ export default function SpecialtiesSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-100px' }}
               transition={{ duration: 0.65, delay: i * 0.14, ease: [0.22, 1, 0.36, 1] }}
-              whileHover={prefersReduced ? {} : { y: -6, scale: 1.01 }}
-              className="group relative flex flex-col p-8 rounded-xl bg-[#1a1a1a] border border-white/[0.08] backdrop-blur-sm transition-all duration-300 hover:border-[#F59E0B]/40 hover:shadow-[0_0_40px_rgba(245,158,11,0.08)]"
+              className="relative flex flex-col p-8 rounded-xl bg-[#1a1a1a] border border-white/[0.08] transition-all duration-300 hover:border-white/[0.14]"
             >
-              <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#F59E0B]/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-t-xl" />
-              <div className="mb-6 w-14 h-14 rounded-xl bg-[#F59E0B]/10 border border-[#F59E0B]/20 flex items-center justify-center group-hover:bg-[#F59E0B]/15 transition-colors duration-300">
-                {icons[i]}
-              </div>
               <h3 className="font-heading font-bold text-xl text-white mb-3 tracking-tight">{spec.title}</h3>
               <p className="text-[#888888] text-sm leading-relaxed font-body mb-6 flex-1">{spec.body}</p>
               <div className="flex flex-wrap gap-2">
