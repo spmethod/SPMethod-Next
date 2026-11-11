@@ -56,7 +56,7 @@ export default function CoachingStyleSection() {
               transition={{ duration: 0.55, delay: i * 0.12, ease: 'easeOut' }}
               className="flex flex-col items-center text-center gap-3"
             >
-              <div className="w-12 h-12 rounded-xl bg-[#F59E0B]/10 border border-[#F59E0B]/20 flex items-center justify-center mb-2">
+              <div className="text-[#F59E0B] mb-2">
                 {p.icon}
               </div>
               <h3 className="font-heading font-bold text-white text-lg tracking-tight">
