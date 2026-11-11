@@ -3,8 +3,8 @@
 import { motion, useReducedMotion } from 'framer-motion'
 import Link from 'next/link'
 import { ArrowRight, ChevronDown } from 'lucide-react'
+import Image from 'next/image'
 import { useLang } from '@/context/LanguageContext'
-import PhotoDumbbell from '@/components/PhotoDumbbell'
 
 const containerVariants = {
   hidden: {},
@@ -75,19 +75,28 @@ export default function HeroSection() {
           </motion.div>
         </motion.div>
 
-        {/* ── Right: Dumbbell ── */}
+        {/* ── Right: Photo ── */}
         <motion.div
           initial={{ opacity: 0, x: 60 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 1, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-          className="relative flex items-center justify-center lg:justify-end"
+          className="relative hidden lg:flex items-end justify-end"
         >
-          {/* Radial light behind dumbbell */}
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-            <div className="w-[420px] h-[280px] rounded-full bg-[#F59E0B] opacity-[0.055] blur-[90px]" />
-          </div>
+          {/* Amber glow at the base of the photo */}
+          <div className="pointer-events-none absolute bottom-0 left-1/2 -translate-x-1/2 w-[320px] h-[180px] rounded-full bg-[#F59E0B] opacity-[0.07] blur-[70px]" />
 
-          <PhotoDumbbell className="w-full max-w-[560px]" />
+          {/* Photo — tall crop, fills the right column to full height */}
+          <div className="relative w-full max-w-[420px] aspect-[3/4] rounded-2xl overflow-hidden">
+            <Image
+              src="/nick-pfp.png"
+              alt="Nick Spartalis"
+              fill
+              className="object-cover object-top"
+              priority
+            />
+            {/* Fade to black at the bottom so it bleeds into the next section */}
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent pointer-events-none" style={{ background: 'linear-gradient(to top, #0a0a0a 0%, transparent 50%)' }} />
+          </div>
         </motion.div>
       </div>
 
