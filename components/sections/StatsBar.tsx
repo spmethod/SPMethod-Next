@@ -10,10 +10,10 @@ interface Stat {
 }
 
 const stats: Stat[] = [
-  { value: 9,   suffix: '+', label: 'Years Training'       },
-  { value: 2,   suffix: '',  label: 'Specialties'          },
-  { value: 100, suffix: '%', label: 'Personalised'         },
-  { value: 2,   suffix: '',  label: 'Vienna & Worldwide'   },
+  { value: 50,  suffix: '%', label: 'Projected strength gain'  },
+  { value: 8,   suffix: ' wk', label: 'Program duration'      },
+  { value: 9,   suffix: '+', label: 'Years coaching'           },
+  { value: 100, suffix: '%', label: 'Personalised'             },
 ]
 
 function CountUp({ target, suffix, active }: { target: number; suffix: string; active: boolean }) {
