@@ -1,6 +1,5 @@
 import HeroSection          from '@/components/sections/HeroSection'
 import MarqueeStrip         from '@/components/MarqueeStrip'
-import StatsBar             from '@/components/sections/StatsBar'
 import SpecialtiesSection   from '@/components/sections/SpecialtiesSection'
 import ProgressSection      from '@/components/sections/ProgressSection'
 import PricingSection       from '@/components/sections/PricingSection'
@@ -13,7 +12,6 @@ export default function HomePage() {
     <>
       <MarqueeStrip />
       <HeroSection />
-      <StatsBar />
       <SpecialtiesSection />
       <ProgressSection />
       <PricingSection />
