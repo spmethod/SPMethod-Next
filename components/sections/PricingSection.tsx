@@ -109,28 +109,17 @@ export default function PricingSection() {
         {/* Pre-Black Friday teaser */}
         {preBf && (
           <motion.div
-            initial={{ opacity: 0, y: -16 }}
+            initial={{ opacity: 0, y: -12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="mb-6 overflow-hidden rounded-2xl"
+            className="mb-6 flex items-center justify-between gap-4 px-5 py-4 rounded-xl border border-white/[0.06] bg-[#141414]"
           >
-            {/* Caution stripe top bar */}
-            <div className="caution-stripe h-3" />
-
-            {/* Main content */}
-            <div className="bg-[#0d0000] border-x border-b border-red-900/40 px-6 py-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-              <div className="flex items-center gap-3">
-                <span className="text-red-500 font-heading font-bold text-xs uppercase tracking-widest">27 NOV</span>
-                <span className="w-px h-4 bg-red-900/60" />
-                <span className="font-heading font-bold text-white text-lg">
-                  <WaveText text="Deals dropping soon." />
-                </span>
-              </div>
-              <span className="font-body text-xs text-red-400/70 uppercase tracking-widest font-semibold">Up to −25%</span>
+            <div className="flex items-center gap-3">
+              <span className="price-blink font-heading font-bold text-sm">27.11</span>
+              <span className="text-white/20 text-xs">—</span>
+              <span className="text-white font-body text-sm">Black Friday deals incoming.</span>
             </div>
-
-            {/* Caution stripe bottom bar */}
-            <div className="caution-stripe h-3" />
+            <span className="text-[#666] font-body text-xs uppercase tracking-widest hidden sm:block">Up to −25%</span>
           </motion.div>
         )}
 
