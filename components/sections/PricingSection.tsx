@@ -172,8 +172,6 @@ export default function PricingSection() {
           <div className="flex flex-wrap items-center justify-center gap-2 text-[#888888]/50 text-xs font-body">
             <CreditCard size={13} className="text-[#888888]/40" />
             <span>{p.paymentVia}</span>
-            <span className="text-[#888888]/70">{p.bankTransfer}</span>
-            <span>·</span>
             <span className="text-[#888888]/70">PayPal</span>
             <span>·</span>
             <span className="text-[#888888]/70">{p.cash}</span>
