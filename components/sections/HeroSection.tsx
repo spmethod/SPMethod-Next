@@ -21,8 +21,6 @@ const COLLAR_L = 170
 const COLLAR_R = 729
 const GAP = 1
 const BAR_LEFT = 20
-const BAR_RIGHT = 880
-const BAR_MID = 450
 
 // Plate photo geometry (366×703 px): hub hole x, and front-face-to-back-face depth
 const IMG_W = 366
@@ -46,13 +44,11 @@ function Plate({ progress, index, side }: { progress: MotionValue<number>; index
   const opacity = useTransform(progress, [p.fall[0], p.fall[0] + 0.04], [0, 1])
   const hubOffset = (side === 'left' ? IMG_HUB_X : IMG_W - IMG_HUB_X) * s
 
-  // The bar from this plate's hub toward the centre passes in front of the plate face and into the hole
-  const barClip = useTransform(x, v => {
-    const now = hub + v
-    return side === 'left'
-      ? `inset(0 ${BAR_RIGHT - BAR_MID}px 0 ${Math.max(0, now - BAR_LEFT)}px)`
-      : `inset(0 ${Math.max(0, BAR_RIGHT - now)}px 0 ${BAR_MID - BAR_LEFT}px)`
-  })
+  // The bar passes in front of the plate face and into the hole. A window over the face moves with
+  // the plate while the bar inside it is shifted back, so only transforms change (no repaints on phones).
+  const faceW = (IMG_W - IMG_HUB_X) * s + 2
+  const windowLeft = side === 'left' ? hub : hub - faceW
+  const counterX = useTransform(x, v => -v)
 
   return (
     <>
@@ -60,10 +56,13 @@ function Plate({ progress, index, side }: { progress: MotionValue<number>; index
         src={`/hero/plate-${p.key}${side === 'right' ? '-r' : ''}.webp`}
         alt=""
         style={{ x, opacity, left: hub - hubOffset, top: BAR_Y - p.h / 2, width: IMG_W * s, height: p.h }}
-        className="absolute max-w-none"
+        className="absolute max-w-none will-change-transform"
       />
-      <motion.img src="/hero/barbell.webp" alt="" style={{ clipPath: barClip }}
-        className="absolute left-[20px] top-[129px] w-[860px] h-[63px] max-w-none" />
+      <motion.div style={{ x, left: windowLeft, width: faceW }}
+        className="absolute top-[129px] h-[63px] overflow-hidden will-change-transform">
+        <motion.img src="/hero/barbell.webp" alt="" style={{ x: counterX, left: BAR_LEFT - windowLeft }}
+          className="absolute top-0 w-[860px] h-[63px] max-w-none will-change-transform" />
+      </motion.div>
     </>
   )
 }
@@ -93,10 +92,10 @@ export default function HeroSection() {
 
   return (
     <div id="home" ref={ref} className="relative h-[260vh] bg-[#0a0a0a]">
-      <section className="sticky top-0 h-screen overflow-hidden flex flex-col items-center justify-center gap-4 md:gap-6 px-6 pt-16">
+      <section className="sticky top-0 h-screen supports-[height:100svh]:h-[100svh] overflow-hidden flex flex-col items-center justify-center gap-4 md:gap-6 px-6 pt-16">
         <motion.div
-          style={{ opacity: glow }}
-          className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] rounded-full bg-[#F59E0B] blur-[120px]"
+          style={{ opacity: glow, background: 'radial-gradient(closest-side, #F59E0B, transparent)' }}
+          className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[520px] will-change-[opacity]"
           aria-hidden="true"
         />
 
@@ -118,7 +117,7 @@ export default function HeroSection() {
 
             {(['left', 'right'] as const).map(side =>
               [2, 1, 0].map(i => <Plate key={`${side}-${i}`} progress={progress} index={i} side={side} />))}
-            <div className="absolute left-1/2 -translate-x-1/2 top-[300px] w-[760px] h-[18px] rounded-[50%] bg-black/70 blur-md" />
+            <div className="absolute left-1/2 -translate-x-1/2 top-[296px] w-[780px] h-[26px]" style={{ background: 'radial-gradient(closest-side, rgba(0,0,0,0.7), transparent)' }} />
           </motion.div>
           </div>
         </div>
