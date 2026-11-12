@@ -169,12 +169,12 @@ export default function PricingSection() {
               <p className="text-[#a3a3a3] font-body text-sm leading-relaxed max-w-sm">{p.featuredDesc}</p>
             </div>
             <div className="sm:text-right flex-shrink-0">
-              <p className="font-heading font-bold text-[#F59E0B] whitespace-nowrap flex items-baseline gap-2 sm:justify-end">
+              <p className={`font-heading font-bold whitespace-nowrap flex items-baseline gap-2 sm:justify-end ${preBf ? 'price-blink' : 'text-[#F59E0B]'}`}>
                 {bf && (
                   <span className="text-lg text-white/30 line-through font-normal">{p.featuredPrice}</span>
                 )}
                 <span className="text-4xl">{bf ? p.bfFeaturedPrice : p.featuredPrice}</span>
-                <span className="text-base text-[#F59E0B]/70">{p.perWeek}</span>
+                <span className="text-base opacity-70">{p.perWeek}</span>
               </p>
               <p className="text-[#888888] font-body text-xs mt-1">
                 {bf ? p.bfFeaturedTotals : p.featuredTotals}
@@ -213,7 +213,7 @@ export default function PricingSection() {
                     </div>
                     <span className="text-[#666666] font-body text-xs">{row.freq}</span>
                   </div>
-                  <div className={`font-heading font-bold whitespace-nowrap flex-shrink-0 text-right ${row.highlight ? 'text-[#F59E0B]' : 'text-white'}`}>
+                  <div className={`font-heading font-bold whitespace-nowrap flex-shrink-0 text-right ${row.highlight ? (preBf ? 'price-blink' : 'text-[#F59E0B]') : 'text-white'}`}>
                     {row.originalPrice && (
                       <span className="text-sm text-white/30 line-through font-normal mr-1.5">{row.originalPrice}</span>
                     )}
