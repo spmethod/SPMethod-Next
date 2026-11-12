@@ -158,7 +158,7 @@ export default function PricingSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 0.55, delay: 0.05 }}
-          className="relative rounded-2xl border border-[#F59E0B]/40 bg-gradient-to-br from-[#1c1608] to-[#141410] p-6 md:p-7 mb-6 shadow-[0_0_40px_rgba(245,158,11,0.08)]"
+          className={`relative rounded-2xl border bg-gradient-to-br from-[#1c1608] to-[#141410] p-6 md:p-7 mb-6 ${preBf ? 'border-pulse-bf' : 'border-[#F59E0B]/40 shadow-[0_0_40px_rgba(245,158,11,0.08)]'}`}
         >
           <span className="inline-block mb-3 px-2.5 py-1 rounded-full bg-[#F59E0B] text-black text-[10px] font-bold font-body uppercase tracking-wider">
             {p.featuredBadge}
