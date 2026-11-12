@@ -101,6 +101,50 @@ body {
   white-space: nowrap;
 }
 
+/* BF wave letter animation */
+@keyframes bf-wave {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-6px); }
+}
+.bf-wave span {
+  display: inline-block;
+  animation: bf-wave 1.2s ease-in-out infinite;
+}
+.bf-wave span:nth-child(1)  { animation-delay: 0.00s; }
+.bf-wave span:nth-child(2)  { animation-delay: 0.07s; }
+.bf-wave span:nth-child(3)  { animation-delay: 0.14s; }
+.bf-wave span:nth-child(4)  { animation-delay: 0.21s; }
+.bf-wave span:nth-child(5)  { animation-delay: 0.28s; }
+.bf-wave span:nth-child(6)  { animation-delay: 0.35s; }
+.bf-wave span:nth-child(7)  { animation-delay: 0.42s; }
+.bf-wave span:nth-child(8)  { animation-delay: 0.49s; }
+.bf-wave span:nth-child(9)  { animation-delay: 0.56s; }
+.bf-wave span:nth-child(10) { animation-delay: 0.63s; }
+.bf-wave span:nth-child(11) { animation-delay: 0.70s; }
+.bf-wave span:nth-child(12) { animation-delay: 0.77s; }
+.bf-wave span:nth-child(13) { animation-delay: 0.84s; }
+.bf-wave span:nth-child(14) { animation-delay: 0.91s; }
+.bf-wave span:nth-child(15) { animation-delay: 0.98s; }
+.bf-wave span:nth-child(16) { animation-delay: 1.05s; }
+.bf-wave span:nth-child(17) { animation-delay: 1.12s; }
+.bf-wave span:nth-child(18) { animation-delay: 1.19s; }
+.bf-wave span:nth-child(19) { animation-delay: 1.26s; }
+.bf-wave span:nth-child(20) { animation-delay: 1.33s; }
+
+/* Caution stripe scroll */
+@keyframes caution-scroll {
+  from { background-position: 0 0; }
+  to   { background-position: 56px 0; }
+}
+.caution-stripe {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    #dc2626 0px, #dc2626 14px,
+    #1a0000 14px, #1a0000 28px
+  );
+  animation: caution-scroll 1s linear infinite;
+}
+
 /* Respect prefers-reduced-motion */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

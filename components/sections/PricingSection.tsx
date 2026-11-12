@@ -12,10 +12,27 @@ function isBlackFriday(): boolean {
   return now >= start && now <= end
 }
 
+function isPreBlackFriday(): boolean {
+  const now = new Date()
+  const start = new Date('2026-11-27T00:00:00+01:00')
+  return now < start
+}
+
+function WaveText({ text }: { text: string }) {
+  return (
+    <span className="bf-wave">
+      {text.split('').map((ch, i) => (
+        <span key={i}>{ch === ' ' ? ' ' : ch}</span>
+      ))}
+    </span>
+  )
+}
+
 export default function PricingSection() {
   const { tr } = useLang()
   const p = tr.pricing
   const bf = isBlackFriday()
+  const preBf = isPreBlackFriday()
 
   type Row = {
     label: string; freq: string
@@ -88,6 +105,34 @@ export default function PricingSection() {
             {p.body}
           </p>
         </motion.div>
+
+        {/* Pre-Black Friday teaser */}
+        {preBf && (
+          <motion.div
+            initial={{ opacity: 0, y: -16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="mb-6 overflow-hidden rounded-2xl"
+          >
+            {/* Caution stripe top bar */}
+            <div className="caution-stripe h-3" />
+
+            {/* Main content */}
+            <div className="bg-[#0d0000] border-x border-b border-red-900/40 px-6 py-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+              <div className="flex items-center gap-3">
+                <span className="text-red-500 font-heading font-bold text-xs uppercase tracking-widest">27 NOV</span>
+                <span className="w-px h-4 bg-red-900/60" />
+                <span className="font-heading font-bold text-white text-lg">
+                  <WaveText text="Deals dropping soon." />
+                </span>
+              </div>
+              <span className="font-body text-xs text-red-400/70 uppercase tracking-widest font-semibold">Up to −25%</span>
+            </div>
+
+            {/* Caution stripe bottom bar */}
+            <div className="caution-stripe h-3" />
+          </motion.div>
+        )}
 
         {/* Black Friday banner */}
         {bf && (
