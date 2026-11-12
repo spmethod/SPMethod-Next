@@ -111,7 +111,7 @@ export default function ProgressSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <p className="text-[#F59E0B] text-xs font-semibold uppercase tracking-widest mb-3 font-body">{p.label}</p>
+          <p className="text-[#0ea5c9] text-xs font-semibold uppercase tracking-widest mb-3 font-body">{p.label}</p>
           <h2 className="font-heading font-bold text-3xl md:text-4xl text-white tracking-tight">
             {p.heading} <span className="text-[#F59E0B]">{p.headingHighlight}</span>
           </h2>
@@ -131,7 +131,7 @@ export default function ProgressSection() {
           {/* Legend */}
           <div className="flex items-center gap-6 mb-6">
             <div className="flex items-center gap-2">
-              <span className="w-6 h-0.5 bg-[#F59E0B] rounded-full block" />
+              <span className="w-6 h-0.5 bg-[#0ea5c9] rounded-full block" />
               <span className="text-[#888888] text-xs font-body uppercase tracking-widest">Strength</span>
             </div>
             <div className="flex items-center gap-2">
@@ -195,7 +195,7 @@ export default function ProgressSection() {
 
               {/* Animated lines */}
               <AnimatedPath d={weightPath}   color="#ff6b6b" delay={0.2} active={active} />
-              <AnimatedPath d={strengthPath} color="#F59E0B" delay={0.5} active={active} />
+              <AnimatedPath d={strengthPath} color="#0ea5c9" delay={0.5} active={active} />
 
               {/* Dots on strength line */}
               {strengthCoords.map((c, i) => (
@@ -204,7 +204,7 @@ export default function ProgressSection() {
                   cx={c.x}
                   cy={c.y}
                   r="3.5"
-                  fill="#F59E0B"
+                  fill="#0ea5c9"
                   initial={{ opacity: 0, scale: 0 }}
                   animate={active ? { opacity: 1, scale: 1 } : {}}
                   transition={{ duration: 0.3, delay: 0.5 + (i / strengthCoords.length) * 1.3 }}

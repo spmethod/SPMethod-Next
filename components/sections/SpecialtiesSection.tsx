@@ -22,7 +22,7 @@ export default function SpecialtiesSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <p className="text-[#F59E0B] text-xs font-semibold uppercase tracking-widest mb-3 font-body">{s.label}</p>
+          <p className="text-[#0ea5c9] text-xs font-semibold uppercase tracking-widest mb-3 font-body">{s.label}</p>
           <h2 className="font-heading font-bold text-4xl md:text-5xl text-white tracking-tight">
             {s.heading.split(' ').slice(0, -2).join(' ')}{' '}
             <span className="relative inline-block">
@@ -48,7 +48,7 @@ export default function SpecialtiesSection() {
                 {tagsByItem[i].map((tag) => (
                   <span
                     key={tag}
-                    className="px-3 py-1 rounded-full text-xs font-semibold font-body bg-[#F59E0B]/10 text-[#F59E0B] border border-[#F59E0B]/20"
+                    className="px-3 py-1 rounded-full text-xs font-semibold font-body bg-[#0ea5c9]/10 text-[#0ea5c9] border border-[#0ea5c9]/20"
                   >
                     {tag}
                   </span>

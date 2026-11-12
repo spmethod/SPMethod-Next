@@ -23,7 +23,7 @@ export default function ProgramPreviewSection() {
   return (
     <section className="relative bg-[#111111] py-28 overflow-hidden">
       {/* Subtle glow */}
-      <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] rounded-full bg-[#F59E0B] opacity-[0.03] blur-[100px]" aria-hidden="true" />
+      <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] rounded-full bg-[#0ea5c9] opacity-[0.04] blur-[100px]" aria-hidden="true" />
 
       <div className="relative z-10 max-w-5xl mx-auto px-6">
 
@@ -35,7 +35,7 @@ export default function ProgramPreviewSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <p className="text-[#F59E0B] text-xs font-semibold uppercase tracking-widest mb-3 font-body">{pp.label}</p>
+          <p className="text-[#0ea5c9] text-xs font-semibold uppercase tracking-widest mb-3 font-body">{pp.label}</p>
           <h2 className="font-heading font-bold text-4xl md:text-5xl text-white tracking-tight mb-4">
             {pp.heading}
           </h2>
@@ -84,8 +84,8 @@ export default function ProgramPreviewSection() {
           <div className="grid grid-cols-[2fr_1fr_1fr_1fr_1fr] bg-[#141414] border-b border-white/[0.06] px-5 py-2.5 gap-4">
             <span className="text-[#555] font-body text-[10px] font-semibold uppercase tracking-wider">{pp.colExercise}</span>
             <span className="text-[#555] font-body text-[10px] font-semibold uppercase tracking-wider">{pp.colTarget}</span>
-            <span className="text-[#F59E0B] font-body text-[10px] font-semibold uppercase tracking-wider">{pp.colWeek1}</span>
-            <span className="text-[#F59E0B] font-body text-[10px] font-semibold uppercase tracking-wider">{pp.colWeek2}</span>
+            <span className="text-[#0ea5c9] font-body text-[10px] font-semibold uppercase tracking-wider">{pp.colWeek1}</span>
+            <span className="text-[#0ea5c9] font-body text-[10px] font-semibold uppercase tracking-wider">{pp.colWeek2}</span>
             <span className="text-[#555] font-body text-[10px] font-semibold uppercase tracking-wider">{pp.colVolume}</span>
           </div>
 
@@ -126,7 +126,7 @@ export default function ProgramPreviewSection() {
           <div className="absolute inset-0 bg-gradient-to-b from-transparent from-40% via-[#111111]/60 to-[#111111] pointer-events-none" />
           <div className="absolute bottom-0 inset-x-0 flex flex-col items-center justify-end pb-7 gap-2">
             <div className="flex items-center gap-2 text-[#888888]">
-              <Lock size={13} className="text-[#F59E0B]" />
+              <Lock size={13} className="text-[#0ea5c9]" />
               <span className="font-body text-xs tracking-wide">{pp.lockMsg}</span>
             </div>
           </div>

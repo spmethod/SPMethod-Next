@@ -7,9 +7,9 @@ import { useLang } from '@/context/LanguageContext'
 export default function CoachingStyleSection() {
   const { tr } = useLang()
   const icons = [
-    <MessageCircle key="m" size={22} className="text-[#F59E0B]" />,
-    <ShieldCheck   key="s" size={22} className="text-[#F59E0B]" />,
-    <TrendingUp    key="t" size={22} className="text-[#F59E0B]" />,
+    <MessageCircle key="m" size={22} className="text-[#0ea5c9]" />,
+    <ShieldCheck   key="s" size={22} className="text-[#0ea5c9]" />,
+    <TrendingUp    key="t" size={22} className="text-[#0ea5c9]" />,
   ]
   const pillars = tr.coaching.pillars.map((p, i) => ({ ...p, icon: icons[i] }))
 
@@ -33,7 +33,7 @@ export default function CoachingStyleSection() {
           <p className="font-heading font-bold text-2xl md:text-3xl lg:text-4xl text-white leading-snug tracking-tight italic mb-6">
             {tr.coaching.quote}
           </p>
-          <footer className="text-[#F59E0B] font-semibold font-body text-sm tracking-widest uppercase">
+          <footer className="text-[#0ea5c9] font-semibold font-body text-sm tracking-widest uppercase">
             {tr.coaching.author}
           </footer>
         </motion.blockquote>
@@ -56,7 +56,7 @@ export default function CoachingStyleSection() {
               transition={{ duration: 0.55, delay: i * 0.12, ease: 'easeOut' }}
               className="flex flex-col items-center text-center gap-3"
             >
-              <div className="text-[#F59E0B] mb-2">
+              <div className="text-[#0ea5c9] mb-2">
                 {p.icon}
               </div>
               <h3 className="font-heading font-bold text-white text-lg tracking-tight">

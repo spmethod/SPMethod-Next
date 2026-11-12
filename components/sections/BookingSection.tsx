@@ -78,7 +78,7 @@ export default function BookingSection() {
           transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
           className="text-center mb-12"
         >
-          <p className="text-[#F59E0B] text-xs font-semibold uppercase tracking-widest mb-3 font-body">
+          <p className="text-[#0ea5c9] text-xs font-semibold uppercase tracking-widest mb-3 font-body">
             {b.label}
           </p>
           <h2 className="font-heading font-bold text-4xl md:text-5xl text-white tracking-tight mb-4">

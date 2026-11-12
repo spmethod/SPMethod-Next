@@ -97,7 +97,7 @@ export default function PricingSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-14"
         >
-          <p className="text-[#F59E0B] text-xs font-semibold uppercase tracking-widest mb-3 font-body">{p.label}</p>
+          <p className="text-[#0ea5c9] text-xs font-semibold uppercase tracking-widest mb-3 font-body">{p.label}</p>
           <h2 className="font-heading font-bold text-4xl md:text-5xl text-white tracking-tight mb-4">
             {p.heading}
           </h2>
@@ -199,7 +199,7 @@ export default function PricingSection() {
                     <div className="flex items-center gap-2 flex-wrap">
                       <span className="font-body font-medium text-white text-sm">{row.label}</span>
                       {row.badge && (
-                        <span className="px-2 py-0.5 rounded-full bg-[#F59E0B]/10 text-[#F59E0B] text-[10px] font-semibold font-body border border-[#F59E0B]/20 uppercase tracking-wide">
+                        <span className="px-2 py-0.5 rounded-full bg-[#0ea5c9]/10 text-[#0ea5c9] text-[10px] font-semibold font-body border border-[#0ea5c9]/20 uppercase tracking-wide">
                           {row.badge}
                         </span>
                       )}
@@ -242,21 +242,21 @@ export default function PricingSection() {
           className="flex flex-col gap-3 mb-10"
         >
           <div className="flex gap-3 p-4 rounded-xl bg-[#1a1a1a] border border-white/[0.06]">
-            <Info size={15} className="text-[#F59E0B] flex-shrink-0 mt-0.5" />
+            <Info size={15} className="text-[#0ea5c9] flex-shrink-0 mt-0.5" />
             <div>
               <p className="text-white font-body text-xs font-semibold mb-1">{p.allInclusiveTitle}</p>
               <p className="text-[#888888] font-body text-xs leading-relaxed">{p.allInclusiveBody}</p>
             </div>
           </div>
           <div className="flex gap-3 p-4 rounded-xl bg-[#1a1a1a] border border-white/[0.06]">
-            <Info size={15} className="text-[#F59E0B] flex-shrink-0 mt-0.5" />
+            <Info size={15} className="text-[#0ea5c9] flex-shrink-0 mt-0.5" />
             <div>
               <p className="text-white font-body text-xs font-semibold mb-1">{p.nutritionInfoTitle}</p>
               <p className="text-[#888888] font-body text-xs leading-relaxed">{p.nutritionInfoBody}</p>
             </div>
           </div>
           <div className="flex gap-3 p-4 rounded-xl bg-[#1a1a1a] border border-white/[0.06]">
-            <Info size={15} className="text-[#F59E0B] flex-shrink-0 mt-0.5" />
+            <Info size={15} className="text-[#0ea5c9] flex-shrink-0 mt-0.5" />
             <div>
               <p className="text-white font-body text-xs font-semibold mb-1">{p.whyWeeklyTitle}</p>
               <p className="text-[#888888] font-body text-xs leading-relaxed">{p.whyWeeklyBody}</p>

@@ -21,6 +21,8 @@ body {
   --green:       #F59E0B;
   --green-mid:   #D97706;
   --green-dim:   rgba(245, 158, 11, 0.10);
+  --blue:        #0ea5c9;
+  --blue-dim:    rgba(14, 165, 201, 0.10);
   --bg:          #0a0a0a;
   --bg-secondary:#111111;
   --card:        #1a1a1a;
