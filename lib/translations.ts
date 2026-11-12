@@ -14,7 +14,7 @@ export const t = {
       body: 'SPMethod — where weight loss and strength meet science-backed coaching. Available in Vienna and worldwide.',
       cta1: 'Book Your Training',
       cta2: 'See Programs',
-      scroll: 'Scroll',
+      scroll: 'Scroll to load the bar',
     },
     specialties: {
       label: 'Specialties',
@@ -255,7 +255,7 @@ export const t = {
       body: 'SPMethod — Abnehmen, Kraft aufbauen, und dabei wissen was du tust. Ich bin in Wien und online für dich da.',
       cta1: 'Training buchen',
       cta2: 'Programme ansehen',
-      scroll: 'Scrollen',
+      scroll: 'Scrollen, um die Stange zu beladen',
     },
     specialties: {
       label: 'Schwerpunkte',
