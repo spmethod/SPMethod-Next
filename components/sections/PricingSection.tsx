@@ -1,24 +1,60 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { CreditCard, Info } from 'lucide-react'
+import { CreditCard, Info, Gift } from 'lucide-react'
 import Link from 'next/link'
 import { useLang } from '@/context/LanguageContext'
+
+function isBlackFriday(): boolean {
+  const now = new Date()
+  const start = new Date('2026-11-27T00:00:00+01:00')
+  const end   = new Date('2026-12-07T23:59:59+01:00')
+  return now >= start && now <= end
+}
 
 export default function PricingSection() {
   const { tr } = useLang()
   const p = tr.pricing
+  const bf = isBlackFriday()
 
-  type Row = { label: string; freq: string; price: string; unit: string | null; highlight: boolean; badge: string | null }
+  type Row = {
+    label: string; freq: string
+    price: string; originalPrice?: string
+    unit: string | null; highlight: boolean; badge: string | null
+  }
 
   const groups: { title: string; rows: Row[] }[] = [
     {
       title: p.groupTraining,
       rows: [
-        { label: p.program1xLabel, freq: p.program1xTotals, price: p.programPrice1x, unit: p.perWeek, highlight: true,  badge: p.allInclusive },
-        { label: p.program2xLabel, freq: p.program2xTotals, price: p.programPrice2x, unit: p.perWeek, highlight: true,  badge: p.allInclusive },
-        { label: p.sessionLabel,   freq: p.sessionFreq,     price: p.sessionPrice,   unit: null,      highlight: false, badge: null },
-        { label: p.planLabel,      freq: p.planFreq,        price: p.planPrice,      unit: null,      highlight: false, badge: null },
+        {
+          label: p.program1xLabel,
+          freq: bf ? p.bfTotals1x : p.program1xTotals,
+          price: bf ? p.bfPrice1x : p.programPrice1x,
+          originalPrice: bf ? p.programPrice1x : undefined,
+          unit: p.perWeek, highlight: true, badge: p.allInclusive,
+        },
+        {
+          label: p.program2xLabel,
+          freq: bf ? p.bfTotals2x : p.program2xTotals,
+          price: bf ? p.bfPrice2x : p.programPrice2x,
+          originalPrice: bf ? p.programPrice2x : undefined,
+          unit: p.perWeek, highlight: true, badge: p.allInclusive,
+        },
+        {
+          label: p.sessionLabel,
+          freq: p.sessionFreq,
+          price: bf ? p.bfSessionPrice : p.sessionPrice,
+          originalPrice: bf ? p.sessionPrice : undefined,
+          unit: null, highlight: false, badge: null,
+        },
+        {
+          label: p.planLabel,
+          freq: p.planFreq,
+          price: bf ? p.bfPlanPrice : p.planPrice,
+          originalPrice: bf ? p.planPrice : undefined,
+          unit: null, highlight: false, badge: null,
+        },
       ],
     },
     {
@@ -53,6 +89,24 @@ export default function PricingSection() {
           </p>
         </motion.div>
 
+        {/* Black Friday banner */}
+        {bf && (
+          <motion.div
+            initial={{ opacity: 0, y: -16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="mb-6 rounded-2xl bg-white text-black px-6 py-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3"
+          >
+            <div className="flex items-center gap-3">
+              <span className="px-2.5 py-1 rounded-full bg-black text-white text-[10px] font-bold font-body uppercase tracking-wider">
+                {p.bfBadge}
+              </span>
+              <span className="font-heading font-bold text-lg">{p.bfDiscount}</span>
+            </div>
+            <span className="font-body text-xs font-semibold text-black/50 uppercase tracking-widest">{p.bfUntil}</span>
+          </motion.div>
+        )}
+
         {/* Featured bundle */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -70,11 +124,16 @@ export default function PricingSection() {
               <p className="text-[#a3a3a3] font-body text-sm leading-relaxed max-w-sm">{p.featuredDesc}</p>
             </div>
             <div className="sm:text-right flex-shrink-0">
-              <p className="font-heading font-bold text-[#F59E0B] whitespace-nowrap">
-                <span className="text-4xl">{p.featuredPrice}</span>
+              <p className="font-heading font-bold text-[#F59E0B] whitespace-nowrap flex items-baseline gap-2 sm:justify-end">
+                {bf && (
+                  <span className="text-lg text-white/30 line-through font-normal">{p.featuredPrice}</span>
+                )}
+                <span className="text-4xl">{bf ? p.bfFeaturedPrice : p.featuredPrice}</span>
                 <span className="text-base text-[#F59E0B]/70">{p.perWeek}</span>
               </p>
-              <p className="text-[#888888] font-body text-xs mt-1">{p.featuredTotals}</p>
+              <p className="text-[#888888] font-body text-xs mt-1">
+                {bf ? p.bfFeaturedTotals : p.featuredTotals}
+              </p>
             </div>
           </div>
         </motion.div>
@@ -109,16 +168,32 @@ export default function PricingSection() {
                     </div>
                     <span className="text-[#666666] font-body text-xs">{row.freq}</span>
                   </div>
-                  <span className={`font-heading font-bold whitespace-nowrap flex-shrink-0 ${row.highlight ? 'text-[#F59E0B]' : 'text-white'}`}>
+                  <div className={`font-heading font-bold whitespace-nowrap flex-shrink-0 text-right ${row.highlight ? 'text-[#F59E0B]' : 'text-white'}`}>
+                    {row.originalPrice && (
+                      <span className="text-sm text-white/30 line-through font-normal mr-1.5">{row.originalPrice}</span>
+                    )}
                     <span className="text-xl">{row.price}</span>
                     {row.unit && <span className="text-xs opacity-60">{row.unit}</span>}
-                  </span>
+                  </div>
                 </div>
               ))}
             </div>
           </motion.div>
         ))}
         <div className="mb-2" />
+
+        {/* Gift voucher note (Black Friday only) */}
+        {bf && (
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.15 }}
+            className="flex gap-3 p-4 rounded-xl bg-white/[0.04] border border-white/[0.08] mb-6"
+          >
+            <Gift size={15} className="text-[#F59E0B] flex-shrink-0 mt-0.5" />
+            <p className="text-[#aaaaaa] font-body text-xs leading-relaxed">{p.bfGiftNote}</p>
+          </motion.div>
+        )}
 
         {/* Info boxes */}
         <motion.div
