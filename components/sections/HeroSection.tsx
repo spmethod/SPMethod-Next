@@ -22,7 +22,7 @@ export default function HeroSection() {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex flex-col justify-center overflow-hidden bg-[#0a0a0a] pt-16"
+      className="relative min-h-screen flex flex-col justify-center overflow-hidden bg-[#0a0a0a]"
     >
       {/* Very subtle amber glow — behind dumbbell side */}
       <div className="pointer-events-none absolute inset-0" aria-hidden="true">

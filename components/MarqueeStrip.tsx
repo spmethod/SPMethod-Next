@@ -3,7 +3,7 @@ export default function MarqueeStrip() {
 
   return (
     <div
-      className="relative overflow-hidden bg-[#F59E0B] py-3.5 select-none"
+      className="relative overflow-hidden bg-[#F59E0B] py-3.5 select-none mt-16"
       aria-hidden="true"
     >
       {/* Fade edges */}

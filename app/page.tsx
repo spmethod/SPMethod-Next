@@ -11,8 +11,8 @@ import BookingSection       from '@/components/sections/BookingSection'
 export default function HomePage() {
   return (
     <>
-      <HeroSection />
       <MarqueeStrip />
+      <HeroSection />
       <StatsBar />
       <SpecialtiesSection />
       <ProgressSection />
