@@ -112,14 +112,18 @@ export default function PricingSection() {
             initial={{ opacity: 0, y: -12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="mb-6 flex items-center justify-between gap-4 px-5 py-4 rounded-xl border border-white/[0.06] bg-[#141414]"
+            className="mb-6 overflow-hidden rounded-xl"
           >
-            <div className="flex items-center gap-3">
-              <span className="price-blink font-heading font-bold text-sm">27.11</span>
-              <span className="text-white/20 text-xs">—</span>
-              <span className="text-white font-body text-sm">Black Friday deals incoming.</span>
+            <div className="caution-stripe h-[3px] opacity-40" />
+            <div className="bg-[#141414] border-x border-white/[0.06] px-5 py-4 flex items-center justify-between gap-4">
+              <div className="flex items-center gap-3">
+                <span className="price-blink font-heading font-bold text-sm">27.11</span>
+                <span className="text-white/20 text-xs">—</span>
+                <span className="text-white font-body text-sm">Black Friday deals incoming.</span>
+              </div>
+              <span className="text-[#666] font-body text-xs uppercase tracking-widest hidden sm:block">Up to −25%</span>
             </div>
-            <span className="text-[#666] font-body text-xs uppercase tracking-widest hidden sm:block">Up to −25%</span>
+            <div className="caution-stripe h-[3px] opacity-40" />
           </motion.div>
         )}
 
