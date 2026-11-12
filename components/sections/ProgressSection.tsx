@@ -6,14 +6,14 @@ import { useLang } from '@/context/LanguageContext'
 
 // Data points simulating a client's fitness progress over weeks
 const progressPoints = [
-  { week: 'W1',  weight: 88, strength: 20  },
-  { week: 'W2',  weight: 86, strength: 28  },
-  { week: 'W3',  weight: 85, strength: 35  },
-  { week: 'W4',  weight: 83, strength: 45  },
-  { week: 'W6',  weight: 81, strength: 58  },
-  { week: 'W8',  weight: 79, strength: 68  },
-  { week: 'W10', weight: 77, strength: 78  },
-  { week: 'W12', weight: 75, strength: 90  },
+  { week: 'W1', weight: 88, strength: 20 },
+  { week: 'W2', weight: 87, strength: 30 },
+  { week: 'W3', weight: 86, strength: 40 },
+  { week: 'W4', weight: 85, strength: 50 },
+  { week: 'W5', weight: 84, strength: 58 },
+  { week: 'W6', weight: 83, strength: 66 },
+  { week: 'W7', weight: 82, strength: 74 },
+  { week: 'W8', weight: 81, strength: 82 },
 ]
 
 const W = 560

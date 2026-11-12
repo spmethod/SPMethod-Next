@@ -41,7 +41,7 @@ export const t = {
         { value: '9+',    label: 'Years coaching'           },
         { value: '100%',  label: 'Personalised plan'        },
       ],
-      disclaimer: 'Example 12-week transformation · Individual results vary',
+      disclaimer: 'Example 8-week transformation · Individual results vary',
     },
     showcase: {
       label: 'Transformations',
@@ -282,7 +282,7 @@ export const t = {
         { value: '9+',    label: 'Jahre Coaching'             },
         { value: '100%',  label: 'Individueller Plan'         },
       ],
-      disclaimer: 'Beispielhafte 12-Wochen-Transformation · Individuelle Ergebnisse können variieren',
+      disclaimer: 'Beispielhafte 8-Wochen-Transformation · Individuelle Ergebnisse können variieren',
     },
     showcase: {
       label: 'Transformationen',
