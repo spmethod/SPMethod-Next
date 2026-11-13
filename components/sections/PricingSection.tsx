@@ -35,7 +35,7 @@ export default function PricingSection() {
   const preBf = isPreBlackFriday()
 
   type Row = {
-    label: string; freq: string
+    label: string; desc?: string; freq: string
     price: string; originalPrice?: string
     unit: string | null; highlight: boolean; badge: string | null
   }
@@ -46,6 +46,7 @@ export default function PricingSection() {
       rows: [
         {
           label: p.program1xLabel,
+          desc: p.programDesc,
           freq: bf ? p.bfTotals1x : p.program1xTotals,
           price: bf ? p.bfPrice1x : p.programPrice1x,
           originalPrice: bf ? p.programPrice1x : undefined,
@@ -53,6 +54,7 @@ export default function PricingSection() {
         },
         {
           label: p.program2xLabel,
+          desc: p.programDesc,
           freq: bf ? p.bfTotals2x : p.program2xTotals,
           price: bf ? p.bfPrice2x : p.programPrice2x,
           originalPrice: bf ? p.programPrice2x : undefined,
@@ -204,6 +206,7 @@ export default function PricingSection() {
                         </span>
                       )}
                     </div>
+                    {row.desc && <span className="text-[#a3a3a3] font-body text-xs">{row.desc}</span>}
                     <span className="text-[#666666] font-body text-xs">{row.freq}</span>
                   </div>
                   <div className={`font-heading font-bold whitespace-nowrap flex-shrink-0 text-right ${row.highlight ? (preBf ? 'price-blink' : 'text-[#F59E0B]') : 'text-white'}`}>
