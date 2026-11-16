@@ -72,7 +72,7 @@ export default function Navigation() {
             <Link
               href="/#contact"
               onClick={() => handleAnchorClick('/#contact')}
-              className="hidden md:inline-flex items-center px-5 py-2.5 bg-[#F59E0B] text-black text-sm font-bold font-heading rounded-lg tracking-wide hover:scale-105 hover:shadow-[0_0_20px_rgba(245,158,11,0.4)] transition-all duration-200"
+              className="hidden md:inline-flex items-center px-5 py-2.5 bg-[#F59E0B] text-black text-sm font-bold font-heading rounded-lg tracking-wide hover:-translate-y-0.5 hover:shadow-[0_0_20px_rgba(245,158,11,0.4)] transition-all duration-200"
             >
               {tr.nav.cta}
             </Link>

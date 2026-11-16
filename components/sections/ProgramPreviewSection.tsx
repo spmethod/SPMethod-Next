@@ -81,19 +81,19 @@ export default function ProgramPreviewSection() {
           </div>
 
           {/* Column headers */}
-          <div className="grid grid-cols-[2fr_1fr_1fr_1fr_1fr] bg-[#141414] border-b border-white/[0.06] px-5 py-2.5 gap-4">
+          <div className="grid grid-cols-[1.4fr_1fr_1fr_1fr] sm:grid-cols-[2fr_1fr_1fr_1fr_1fr] bg-[#141414] border-b border-white/[0.06] px-5 py-2.5 gap-4">
             <span className="text-[#555] font-body text-[10px] font-semibold uppercase tracking-wider">{pp.colExercise}</span>
             <span className="text-[#555] font-body text-[10px] font-semibold uppercase tracking-wider">{pp.colTarget}</span>
             <span className="text-[#0ea5c9] font-body text-[10px] font-semibold uppercase tracking-wider">{pp.colWeek1}</span>
             <span className="text-[#0ea5c9] font-body text-[10px] font-semibold uppercase tracking-wider">{pp.colWeek2}</span>
-            <span className="text-[#555] font-body text-[10px] font-semibold uppercase tracking-wider">{pp.colVolume}</span>
+            <span className="hidden sm:block text-[#555] font-body text-[10px] font-semibold uppercase tracking-wider">{pp.colVolume}</span>
           </div>
 
           {/* Exercise rows */}
           {ROWS.map((row, i) => (
             <div
               key={i}
-              className={`grid grid-cols-[2fr_1fr_1fr_1fr_1fr] px-5 py-3.5 gap-4 items-center border-b border-white/[0.04] ${
+              className={`grid grid-cols-[1.4fr_1fr_1fr_1fr] sm:grid-cols-[2fr_1fr_1fr_1fr_1fr] px-5 py-3.5 gap-4 items-center border-b border-white/[0.04] ${
                 i % 2 === 0 ? 'bg-[#111111]' : 'bg-[#0e0e0e]'
               }`}
             >
@@ -106,7 +106,7 @@ export default function ProgramPreviewSection() {
               {/* Week data — blurred */}
               <span className="text-[#F59E0B] font-body text-xs blur-[4px] select-none">{row.w1}</span>
               <span className="text-[#F59E0B] font-body text-xs blur-[4px] select-none">{row.w2}</span>
-              <span className="text-[#444] font-body text-xs blur-[4px] select-none">{row.vol}</span>
+              <span className="hidden sm:block text-[#444] font-body text-xs blur-[4px] select-none">{row.vol}</span>
             </div>
           ))}
 
@@ -160,7 +160,7 @@ export default function ProgramPreviewSection() {
         >
           <Link
             href="/#contact"
-            className="inline-flex items-center justify-center px-10 py-4 bg-[#F59E0B] text-black font-bold font-heading text-sm rounded-lg uppercase tracking-wide hover:scale-105 hover:shadow-[0_0_24px_rgba(245,158,11,0.45)] transition-all duration-200"
+            className="inline-flex items-center justify-center px-10 py-4 bg-[#F59E0B] text-black font-bold font-heading text-sm rounded-lg uppercase tracking-wide hover:-translate-y-0.5 hover:shadow-[0_0_24px_rgba(245,158,11,0.45)] transition-all duration-200"
           >
             {pp.cta}
           </Link>

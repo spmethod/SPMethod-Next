@@ -162,7 +162,21 @@ body {
     #dc2626 0px, #dc2626 14px,
     #1a0000 14px, #1a0000 28px
   );
-  animation: caution-scroll 1s linear infinite;
+}
+
+/* Black Friday: a soft light sweep every few seconds */
+.bf-shine::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(110deg, transparent 35%, rgba(255,255,255,0.22) 50%, transparent 65%);
+  transform: translateX(-120%);
+  animation: bf-shine 4.5s ease-in-out infinite;
+}
+@keyframes bf-shine {
+  0%, 55% { transform: translateX(-120%); }
+  85%, 100% { transform: translateX(120%); }
 }
 
 /* Respect prefers-reduced-motion */

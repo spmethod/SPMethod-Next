@@ -132,11 +132,11 @@ export default function ProgressSection() {
           <div className="flex items-center gap-6 mb-6">
             <div className="flex items-center gap-2">
               <span className="w-6 h-0.5 bg-[#0ea5c9] rounded-full block" />
-              <span className="text-[#888888] text-xs font-body uppercase tracking-widest">Strength</span>
+              <span className="text-[#888888] text-xs font-body uppercase tracking-widest">{p.legendStrength}</span>
             </div>
             <div className="flex items-center gap-2">
               <span className="w-6 h-0.5 bg-[#ff6b6b] rounded-full block" />
-              <span className="text-[#888888] text-xs font-body uppercase tracking-widest">Body Weight (kg)</span>
+              <span className="text-[#888888] text-xs font-body uppercase tracking-widest">{p.legendWeight}</span>
             </div>
           </div>
 
@@ -145,7 +145,7 @@ export default function ProgressSection() {
             <svg
               viewBox={`0 0 ${W} ${H}`}
               className="w-full min-w-[320px]"
-              aria-label="Progress chart showing strength increase and weight decrease over 12 weeks"
+              aria-label="Example chart: strength going up and body weight going down over 8 weeks"
             >
               {/* Horizontal grid lines */}
               {[0, 0.25, 0.5, 0.75, 1].map((t) => (
@@ -167,8 +167,8 @@ export default function ProgressSection() {
                   x={c.x}
                   y={H - 6}
                   textAnchor="middle"
-                  fill="#555"
-                  fontSize="9"
+                  fill="#777"
+                  fontSize="11"
                   fontFamily="var(--font-inter, sans-serif)"
                 >
                   {c.label}
@@ -228,7 +228,7 @@ export default function ProgressSection() {
           </div>
 
           {/* Bottom label */}
-          <p className="mt-4 text-center text-[#888888]/40 text-[10px] font-body uppercase tracking-widest">
+          <p className="mt-4 text-center text-[#888888]/70 text-[10px] font-body uppercase tracking-widest">
             {p.disclaimer}
           </p>
         </motion.div>

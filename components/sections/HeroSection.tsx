@@ -5,6 +5,7 @@ import { motion, useScroll, useTransform, useMotionValue, useReducedMotion, ease
 import Link from 'next/link'
 import { ArrowRight, ChevronDown } from 'lucide-react'
 import { useLang } from '@/context/LanguageContext'
+import { bfPhase, useNow } from '@/lib/blackFriday'
 
 const PLATES = [
   { key: 'strength',   kg: 25, h: 260, fall: [0.06, 0.22] },
@@ -71,6 +72,8 @@ export default function HeroSection() {
   const ref = useRef<HTMLDivElement>(null)
   const prefersReduced = useReducedMotion()
   const { tr } = useLang()
+  const now = useNow(60_000)
+  const bfLive = now ? bfPhase(now) === 'live' : false
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end end'] })
   const loaded = useMotionValue(1)
   const progress = prefersReduced ? loaded : scrollYProgress
@@ -84,23 +87,38 @@ export default function HeroSection() {
 
   const glow = useTransform(progress, [0, 0.7], [0.02, 0.09])
   const hintOpacity = useTransform(progress, [0, 0.05], [1, 0])
-  const headOpacity = useTransform(progress, [0.70, 0.80], [0, 1])
-  const headY = useTransform(progress, [0.70, 0.80], [24, 0])
-  const restOpacity = useTransform(progress, [0.76, 0.88], [0, 1])
-  const restY = useTransform(progress, [0.76, 0.88], [24, 0])
-  const restVisibility = useTransform(progress, v => (v > 0.74 ? 'visible' : 'hidden'))
 
   return (
-    <div id="home" ref={ref} className="relative h-[260vh] bg-[#0a0a0a]">
-      <section className="sticky top-0 h-screen supports-[height:100svh]:h-[100svh] overflow-hidden flex flex-col items-center justify-center gap-4 md:gap-6 px-6 pt-16">
+    <div id="home" ref={ref} className="relative h-[220vh] bg-[#0a0a0a]">
+      <section className="sticky top-0 h-screen supports-[height:100svh]:h-[100svh] overflow-hidden flex flex-col items-center justify-center gap-4 md:gap-5 px-6 pt-16 md:pb-24">
         <motion.div
           style={{ opacity: glow, background: 'radial-gradient(closest-side, #F59E0B, transparent)' }}
           className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[520px] will-change-[opacity]"
           aria-hidden="true"
         />
 
+        {bfLive && (
+          <motion.div
+            initial={prefersReduced ? false : { opacity: 0, scale: 0.6, y: 10 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ type: 'spring', stiffness: 380, damping: 15, delay: 0.3 }}
+            className="relative z-10 -mb-1"
+          >
+            <Link
+              href="/#programs"
+              className="bf-shine relative overflow-hidden inline-flex items-center gap-2.5 rounded-full bg-white pl-1.5 pr-4 py-1.5 text-black font-body text-sm font-semibold hover:-translate-y-0.5 transition-transform"
+            >
+              <span className="rounded-full bg-black px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-white">{tr.pricing.bfBadge}</span>
+              {tr.pricing.bfHeroPill}
+              <ArrowRight size={14} />
+            </Link>
+          </motion.div>
+        )}
         <motion.h1
-          style={{ opacity: headOpacity, y: headY, fontSize: 'clamp(2.6rem, 7vw, 6rem)' }}
+          initial={prefersReduced ? false : { opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          style={{ fontSize: 'clamp(2.6rem, 7vw, 6rem)' }}
           className="relative z-10 font-heading font-bold tracking-tight leading-none text-center"
         >
           <span className="text-white">{tr.hero.line1} </span>
@@ -108,8 +126,8 @@ export default function HeroSection() {
         </motion.h1>
 
         {/* Barbell: fixed 900×320 drawing, scaled down on small screens */}
-        <div className="relative z-10 h-[200px] sm:h-[260px] md:h-[320px] flex items-center justify-center" aria-hidden="true">
-          <div className="relative w-[900px] h-[320px] flex-shrink-0 scale-[0.42] sm:scale-[0.7] md:scale-100">
+        <div className="relative z-10 h-[150px] sm:h-[240px] md:h-[300px] [@media(min-width:768px)_and_(max-height:880px)]:h-[200px] flex items-center justify-center" aria-hidden="true">
+          <div className="relative w-[900px] h-[320px] flex-shrink-0 scale-[0.4] sm:scale-[0.68] md:scale-95 [@media(min-width:768px)_and_(max-height:880px)]:scale-[0.66]">
           <motion.div style={{ y: dip }} className="absolute inset-0">
             {/* Back to front: whole bar, then plates outer-to-inner, each followed by the bar segment that passes in front of its face */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -127,23 +145,25 @@ export default function HeroSection() {
         </motion.span>
 
         <motion.div
-          style={{ opacity: restOpacity, y: restY, visibility: restVisibility }}
+          initial={prefersReduced ? false : { opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
           className="relative z-10 flex flex-col items-center text-center"
         >
-          <p className="text-[#888888] text-base md:text-lg mb-6 leading-relaxed font-body max-w-lg">
+          <p className="text-[#a3a3a3] text-sm md:text-lg mb-5 md:mb-6 leading-relaxed font-body max-w-lg">
             {tr.hero.body}
           </p>
-          <div className="flex flex-col sm:flex-row items-center gap-4">
+          <div className="flex flex-row flex-wrap justify-center items-center gap-3 sm:gap-4">
             <Link
               href="/#contact"
-              className="group inline-flex items-center gap-2 px-8 py-4 bg-[#F59E0B] text-black font-bold font-heading text-sm rounded-lg uppercase tracking-wide hover:scale-105 hover:shadow-[0_0_30px_rgba(245,158,11,0.45)] transition-all duration-200"
+              className="group inline-flex items-center gap-2 px-6 sm:px-8 py-3.5 sm:py-4 bg-[#F59E0B] text-black font-bold font-heading text-sm rounded-lg uppercase tracking-wide hover:-translate-y-0.5 hover:shadow-[0_0_30px_rgba(245,158,11,0.45)] transition-all duration-200"
             >
               {tr.hero.cta1}
               <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
             </Link>
             <Link
               href="/#programs"
-              className="inline-flex items-center gap-2 px-8 py-4 border border-[#F59E0B]/60 text-[#F59E0B] font-bold font-heading text-sm rounded-lg uppercase tracking-wide hover:bg-[#F59E0B]/10 hover:scale-105 transition-all duration-200"
+              className="inline-flex items-center gap-2 px-6 sm:px-8 py-3.5 sm:py-4 border border-[#F59E0B]/60 text-[#F59E0B] font-bold font-heading text-sm rounded-lg uppercase tracking-wide hover:bg-[#F59E0B]/10 hover:-translate-y-0.5 transition-all duration-200"
             >
               {tr.hero.cta2}
             </Link>
@@ -152,7 +172,7 @@ export default function HeroSection() {
 
         <motion.div
           style={{ opacity: hintOpacity }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-[#888888]/70"
+          className="absolute bottom-5 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-[#888888]/70"
           aria-hidden="true"
         >
           <motion.div

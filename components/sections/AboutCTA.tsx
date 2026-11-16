@@ -58,7 +58,7 @@ export default function AboutCTA() {
 
           <Link
             href="/#contact"
-            className="group inline-flex items-center gap-2.5 px-10 py-4 bg-[#F59E0B] text-black font-bold font-heading text-base rounded-xl uppercase tracking-wide hover:scale-105 hover:shadow-[0_0_40px_rgba(245,158,11,0.50)] transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#F59E0B] focus:ring-offset-2 focus:ring-offset-[#0a0a0a]"
+            className="group inline-flex items-center gap-2.5 px-10 py-4 bg-[#F59E0B] text-black font-bold font-heading text-base rounded-xl uppercase tracking-wide hover:-translate-y-0.5 hover:shadow-[0_0_40px_rgba(245,158,11,0.50)] transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#F59E0B] focus:ring-offset-2 focus:ring-offset-[#0a0a0a]"
           >
             {cta.cta}
             <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />

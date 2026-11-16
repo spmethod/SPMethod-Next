@@ -84,7 +84,7 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="mt-12 pt-6 border-t border-white/[0.06] text-center">
           <p className="text-[#888888]/60 text-xs">
-            {tr.footer.rights}
+            © {new Date().getFullYear()} {tr.footer.rights}
             <span className="mx-2">·</span>
             <Link href="/impressum" className="hover:text-white transition-colors underline-offset-4 hover:underline">
               {tr.footer.legal}

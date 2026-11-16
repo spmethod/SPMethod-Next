@@ -4,19 +4,10 @@ import { motion } from 'framer-motion'
 import { CreditCard, Info, Gift } from 'lucide-react'
 import Link from 'next/link'
 import { useLang } from '@/context/LanguageContext'
+import { bfPhase, useNow } from '@/lib/blackFriday'
+import BfCountdown from '@/components/BfCountdown'
+import DealPrice from '@/components/DealPrice'
 
-function isBlackFriday(): boolean {
-  const now = new Date()
-  const start = new Date('2026-11-27T00:00:00+01:00')
-  const end   = new Date('2026-12-07T23:59:59+01:00')
-  return now >= start && now <= end
-}
-
-function isPreBlackFriday(): boolean {
-  const now = new Date()
-  const start = new Date('2026-11-27T00:00:00+01:00')
-  return now < start
-}
 
 function WaveText({ text }: { text: string }) {
   return (
@@ -31,8 +22,10 @@ function WaveText({ text }: { text: string }) {
 export default function PricingSection() {
   const { tr } = useLang()
   const p = tr.pricing
-  const bf = isBlackFriday()
-  const preBf = isPreBlackFriday()
+  const now = useNow(60_000)
+  const phase = now ? bfPhase(now) : 'over'
+  const bf = phase === 'live'
+  const preBf = phase === 'pre'
 
   type Row = {
     label: string; desc?: string; freq: string
@@ -108,42 +101,32 @@ export default function PricingSection() {
           </p>
         </motion.div>
 
-        {/* Pre-Black Friday teaser */}
-        {preBf && (
+        {/* Black Friday countdown banner (before and during the sale) */}
+        {(preBf || bf) && (
           <motion.div
             initial={{ opacity: 0, y: -12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="mb-6 overflow-hidden rounded-xl"
+            className={`bf-shine relative mb-6 overflow-hidden rounded-2xl px-5 py-5 sm:px-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 ${
+              bf ? 'bg-white text-black' : 'bg-[#0d0d0d] border border-[#F59E0B]/40 shadow-[0_0_40px_rgba(245,158,11,0.10)]'
+            }`}
           >
-            <div className="caution-stripe h-[3px] opacity-40" />
-            <div className="bg-[#141414] border-x border-white/[0.06] px-5 py-4 flex items-center justify-between gap-4">
-              <div className="flex items-center gap-3">
-                <span className="price-blink font-heading font-bold text-sm">27.11</span>
-                <span className="text-white/20 text-xs">—</span>
-                <span className="text-white font-body text-sm">Black Friday deals incoming.</span>
+            <div className="flex flex-col gap-1.5 min-w-0">
+              <div className="flex items-center gap-2.5">
+                <span className={`px-2.5 py-1 rounded-full text-[10px] font-bold font-body uppercase tracking-wider ${bf ? 'bg-black text-white' : 'bg-[#F59E0B] text-black'}`}>
+                  {p.bfBadge}
+                </span>
+                <span className={`font-heading font-bold text-base sm:text-lg ${bf ? 'text-black' : 'text-white'}`}>
+                  {bf ? p.bfEndsIn : p.bfStartsIn}
+                </span>
               </div>
-              <span className="text-[#666] font-body text-xs uppercase tracking-widest hidden sm:block">Up to −25%</span>
-            </div>
-            <div className="caution-stripe h-[3px] opacity-40" />
-          </motion.div>
-        )}
-
-        {/* Black Friday banner */}
-        {bf && (
-          <motion.div
-            initial={{ opacity: 0, y: -16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="mb-6 rounded-2xl bg-white text-black px-6 py-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3"
-          >
-            <div className="flex items-center gap-3">
-              <span className="px-2.5 py-1 rounded-full bg-black text-white text-[10px] font-bold font-body uppercase tracking-wider">
-                {p.bfBadge}
+              <span className={`font-body text-xs sm:text-sm ${bf ? 'text-black/60' : 'text-[#a3a3a3]'}`}>
+                {bf ? p.bfLive : p.bfTeaser}
               </span>
-              <span className="font-heading font-bold text-lg">{p.bfDiscount}</span>
             </div>
-            <span className="font-body text-xs font-semibold text-black/50 uppercase tracking-widest">{p.bfUntil}</span>
+            <div className="flex-shrink-0">
+              <BfCountdown />
+            </div>
           </motion.div>
         )}
 
@@ -153,8 +136,20 @@ export default function PricingSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 0.55, delay: 0.05 }}
-          className={`relative rounded-2xl border bg-gradient-to-br from-[#1c1608] to-[#141410] p-6 md:p-7 mb-6 ${preBf ? 'border-pulse-bf' : 'border-[#F59E0B]/40 shadow-[0_0_40px_rgba(245,158,11,0.08)]'}`}
+          className={`relative rounded-2xl border bg-gradient-to-br from-[#1c1608] to-[#141410] p-6 md:p-7 mb-6 border-[#F59E0B]/40 shadow-[0_0_40px_rgba(245,158,11,0.08)]`}
         >
+          {bf && (
+            <motion.span
+              className="absolute -top-4 -right-3 sm:-right-4 z-10 rounded-xl bg-white px-3.5 py-2 text-center font-heading font-bold text-xl text-black shadow-[0_10px_30px_rgba(0,0,0,0.5)]"
+              initial={{ opacity: 0, scale: 2.4, rotate: -12 }}
+              whileInView={{ opacity: 1, scale: 1, rotate: 8 }}
+              viewport={{ once: true, margin: '-80px' }}
+              transition={{ type: 'spring', stiffness: 380, damping: 16, delay: 0.9 }}
+            >
+              <span className="block text-[10px] font-body font-bold uppercase tracking-wider leading-none text-black/60">{p.bfStickerTop}</span>
+              <span className="block leading-tight">{p.bfSticker}</span>
+            </motion.span>
+          )}
           <span className="inline-block mb-3 px-2.5 py-1 rounded-full bg-[#F59E0B] text-black text-[10px] font-bold font-body uppercase tracking-wider">
             {p.featuredBadge}
           </span>
@@ -164,11 +159,12 @@ export default function PricingSection() {
               <p className="text-[#a3a3a3] font-body text-sm leading-relaxed max-w-sm">{p.featuredDesc}</p>
             </div>
             <div className="sm:text-right flex-shrink-0">
-              <p className={`font-heading font-bold whitespace-nowrap flex items-baseline gap-2 sm:justify-end ${preBf ? 'price-blink' : 'text-[#F59E0B]'}`}>
-                {bf && (
-                  <span className="text-lg text-white/30 line-through font-normal">{p.featuredPrice}</span>
+              <p className={`font-heading font-bold whitespace-nowrap flex items-baseline gap-2 sm:justify-end text-[#F59E0B]`}>
+                {bf ? (
+                  <DealPrice oldPrice={p.featuredPrice} newPrice={p.bfFeaturedPrice} oldClass="text-lg" newClass="text-4xl" delay={0.2} />
+                ) : (
+                  <span className="text-4xl">{p.featuredPrice}</span>
                 )}
-                <span className="text-4xl">{bf ? p.bfFeaturedPrice : p.featuredPrice}</span>
                 <span className="text-base opacity-70">{p.perWeek}</span>
               </p>
               <p className="text-[#888888] font-body text-xs mt-1">
@@ -209,11 +205,14 @@ export default function PricingSection() {
                     {row.desc && <span className="text-[#a3a3a3] font-body text-xs">{row.desc}</span>}
                     <span className="text-[#666666] font-body text-xs">{row.freq}</span>
                   </div>
-                  <div className={`font-heading font-bold whitespace-nowrap flex-shrink-0 text-right ${row.highlight ? (preBf ? 'price-blink' : 'text-[#F59E0B]') : 'text-white'}`}>
-                    {row.originalPrice && (
-                      <span className="text-sm text-white/30 line-through font-normal mr-1.5">{row.originalPrice}</span>
+                  <div className={`font-heading font-bold whitespace-nowrap flex-shrink-0 text-right ${row.highlight ? 'text-[#F59E0B]' : 'text-white'}`}>
+                    {row.originalPrice ? (
+                      <>
+                        <DealPrice oldPrice={row.originalPrice} newPrice={row.price} oldClass="text-sm mr-1.5" newClass="text-xl" delay={0.1 + i * 0.12} />
+                      </>
+                    ) : (
+                      <span className="text-xl">{row.price}</span>
                     )}
-                    <span className="text-xl">{row.price}</span>
                     {row.unit && <span className="text-xs opacity-60">{row.unit}</span>}
                   </div>
                 </div>
@@ -280,7 +279,7 @@ export default function PricingSection() {
         >
           <Link
             href="/#contact"
-            className="inline-flex items-center justify-center px-10 py-4 bg-[#F59E0B] text-black font-bold font-heading text-sm rounded-lg uppercase tracking-wide hover:scale-105 hover:shadow-[0_0_24px_rgba(245,158,11,0.45)] transition-all duration-200"
+            className="inline-flex items-center justify-center px-10 py-4 bg-[#F59E0B] text-black font-bold font-heading text-sm rounded-lg uppercase tracking-wide hover:-translate-y-0.5 hover:shadow-[0_0_24px_rgba(245,158,11,0.45)] transition-all duration-200"
           >
             {p.bookSession}
           </Link>

@@ -51,13 +51,13 @@ export default function AboutHero() {
           <motion.div variants={item} className="flex flex-wrap gap-4">
             <Link
               href="#story"
-              className="inline-flex items-center gap-2 px-7 py-3.5 bg-[#F59E0B] text-black font-bold font-heading text-sm rounded-lg uppercase tracking-wide hover:scale-105 hover:shadow-[0_0_24px_rgba(245,158,11,0.45)] transition-all duration-200"
+              className="inline-flex items-center gap-2 px-7 py-3.5 bg-[#F59E0B] text-black font-bold font-heading text-sm rounded-lg uppercase tracking-wide hover:-translate-y-0.5 hover:shadow-[0_0_24px_rgba(245,158,11,0.45)] transition-all duration-200"
             >
               {tr.aboutHero.cta1}
             </Link>
             <Link
               href="/#contact"
-              className="inline-flex items-center gap-2 px-7 py-3.5 border border-[#F59E0B]/50 text-[#F59E0B] font-bold font-heading text-sm rounded-lg uppercase tracking-wide hover:bg-[#F59E0B]/10 hover:scale-105 transition-all duration-200"
+              className="inline-flex items-center gap-2 px-7 py-3.5 border border-[#F59E0B]/50 text-[#F59E0B] font-bold font-heading text-sm rounded-lg uppercase tracking-wide hover:bg-[#F59E0B]/10 hover:-translate-y-0.5 transition-all duration-200"
             >
               {tr.aboutHero.cta2}
             </Link>

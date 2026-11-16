@@ -25,12 +25,13 @@ export default function BookingSection() {
     name: '', email: '', phone: '', goal: '', format: '',
   })
   const [customGoal, setCustomGoal] = useState('')
+  const [formatMissing, setFormatMissing] = useState(false)
   const isCustomGoal = data.goal === b.goals[b.goals.length - 1]
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!data.format) {
-      alert(b.formatRequired)
+      setFormatMissing(true)
       return
     }
     setFormState('submitting')
@@ -225,7 +226,7 @@ export default function BookingSection() {
                           name="format"
                           value={value}
                           checked={data.format === value}
-                          onChange={(e) => setData((d) => ({ ...d, format: e.target.value }))}
+                          onChange={(e) => { setFormatMissing(false); setData((d) => ({ ...d, format: e.target.value })) }}
                           className="sr-only"
                         />
                         <span
@@ -239,6 +240,9 @@ export default function BookingSection() {
                       </label>
                     ))}
                   </div>
+                  {formatMissing && (
+                    <p role="alert" className="mt-2 text-red-400 text-xs font-body">{b.formatRequired}</p>
+                  )}
                 </div>
 
                 {/* Error message */}
