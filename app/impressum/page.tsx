@@ -4,7 +4,7 @@ import ImpressumContent from '@/components/sections/ImpressumContent'
 export const metadata: Metadata = {
   title: 'Impressum',
   description: 'Impressum and legal disclosure for SPMethod by Nick Spartalis.',
-  robots: { index: true, follow: true },
+  robots: { index: false, follow: false },
 }
 
 export default function ImpressumPage() {

@@ -54,10 +54,11 @@ export const metadata: Metadata = {
     description:
       'Science-backed personal training for weight loss and strength & muscle building.',
   },
+  // Hidden from search engines for now; flip back to true to be listed again
   robots: {
-    index: true,
-    follow: true,
-    googleBot: { index: true, follow: true },
+    index: false,
+    follow: false,
+    googleBot: { index: false, follow: false, noimageindex: true },
   },
 }
 
