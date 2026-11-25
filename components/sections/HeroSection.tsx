@@ -1,27 +1,92 @@
 ﻿'use client'
 
-import { useRef } from 'react'
-import { motion, useScroll, useTransform, useMotionValueEvent, useReducedMotion } from 'framer-motion'
+import { useEffect, useRef } from 'react'
+import { motion, useScroll, useTransform, useReducedMotion, MotionValue } from 'framer-motion'
 import Link from 'next/link'
 import { ArrowRight, ChevronDown } from 'lucide-react'
 import { useLang } from '@/context/LanguageContext'
 import { bfPhase, useNow } from '@/lib/blackFriday'
 
+const FRAME_COUNT = 192
+const FRAME_W = 960
+const FRAME_H = 432
+const frameSrc = (i: number) => `/hero/sphere/f_${String(i).padStart(3, '0')}.webp`
+
+// Coarse-to-fine load order so the whole scroll range is usable early, then fills in
+function loadOrder() {
+  const order: number[] = []
+  const seen = new Set<number>()
+  for (const step of [32, 16, 8, 4, 2, 1]) {
+    for (let i = 0; i < FRAME_COUNT; i += step) if (!seen.has(i)) { seen.add(i); order.push(i) }
+  }
+  return order
+}
+
+// Pre-decoded image frames drawn to a canvas. Unlike seeking a <video>, this works on phones
+// (no play gesture needed) and each frame is instant; easing toward the scroll target keeps it smooth.
+function SphereSequence({ progress, still }: { progress: MotionValue<number>; still: boolean }) {
+  const canvasRef = useRef<HTMLCanvasElement>(null)
+
+  useEffect(() => {
+    const canvas = canvasRef.current
+    const ctx = canvas?.getContext('2d')
+    if (!canvas || !ctx) return
+
+    const frames: (HTMLImageElement | null)[] = new Array(FRAME_COUNT).fill(null)
+    const target = () => (still ? 0 : Math.max(0, Math.min(1, progress.get())) * (FRAME_COUNT - 1))
+    let current = target()
+    let drawn = -1
+    let raf = 0
+    let alive = true
+
+    const draw = (i: number) => {
+      let j = i
+      while (j >= 0 && !frames[j]) j--
+      if (j < 0) { j = i; while (j < FRAME_COUNT && !frames[j]) j++ }
+      const img = frames[j]
+      if (!img || j === drawn) return
+      ctx.drawImage(img, 0, 0, FRAME_W, FRAME_H)
+      drawn = j
+    }
+
+    for (const i of loadOrder()) {
+      const img = new Image()
+      img.src = frameSrc(i)
+      img.decode().catch(() => {}).finally(() => { if (alive) frames[i] = img })
+    }
+
+    const tick = () => {
+      const t = target()
+      current += (t - current) * 0.18
+      if (Math.abs(t - current) < 0.05) current = t
+      draw(Math.round(current))
+      raf = requestAnimationFrame(tick)
+    }
+
+    // Only run the loop while the hero is on screen
+    const io = new IntersectionObserver(([entry]) => {
+      cancelAnimationFrame(raf)
+      if (entry.isIntersecting) raf = requestAnimationFrame(tick)
+    })
+    io.observe(canvas)
+
+    return () => {
+      alive = false
+      io.disconnect()
+      cancelAnimationFrame(raf)
+    }
+  }, [progress, still])
+
+  return <canvas ref={canvasRef} width={FRAME_W} height={FRAME_H} className="h-full w-full object-contain" />
+}
+
 export default function HeroSection() {
   const ref = useRef<HTMLDivElement>(null)
-  const videoRef = useRef<HTMLVideoElement>(null)
   const prefersReduced = useReducedMotion()
   const { tr } = useLang()
   const now = useNow(60_000)
   const bfLive = now ? bfPhase(now) === 'live' : false
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end end'] })
-  useMotionValueEvent(scrollYProgress, 'change', progress => {
-    const video = videoRef.current
-    if (prefersReduced || !video || video.readyState < 1 || !Number.isFinite(video.duration)) return
-
-    const nextTime = Math.max(0, Math.min(1, progress)) * video.duration
-    if (Math.abs(video.currentTime - nextTime) > 0.04) video.currentTime = nextTime
-  })
 
   const glow = useTransform(scrollYProgress, [0, 0.7], [0.02, 0.09])
   const hintOpacity = useTransform(scrollYProgress, [0, 0.05], [1, 0])
@@ -63,25 +128,9 @@ export default function HeroSection() {
           <span className="text-[#F59E0B]">{tr.hero.line2}</span>
         </motion.h1>
 
-        {/* Video background is pure black like the page, so no blending is needed; the glow sits on top (z-5), text above that */}
-        <div className="relative z-0 h-[clamp(170px,34vh,360px)] w-full max-w-[900px] flex items-center justify-center" aria-hidden="true">
-          <video
-            ref={videoRef}
-            className="h-full w-full object-contain"
-            muted
-            playsInline
-            preload="auto"
-            poster="/hero/chrome-sphere-poster.webp"
-            tabIndex={-1}
-            onLoadedMetadata={event => {
-              const video = event.currentTarget
-              if (!prefersReduced && Number.isFinite(video.duration)) {
-                video.currentTime = scrollYProgress.get() * video.duration
-              }
-            }}
-          >
-            <source src="/hero/chrome-sphere.mp4" type="video/mp4" />
-          </video>
+        {/* Frames have a pure-black background like the page; the glow sits on top (z-5), text above that */}
+        <div className="relative z-0 h-[clamp(140px,28vh,290px)] w-full max-w-[900px] flex items-center justify-center" aria-hidden="true">
+          <SphereSequence progress={scrollYProgress} still={!!prefersReduced} />
         </div>
 
         <motion.div
