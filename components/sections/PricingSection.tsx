@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 import { CreditCard, Info, Gift, Smartphone } from 'lucide-react'
 import Link from 'next/link'
 import { useLang } from '@/context/LanguageContext'
-import { appBonusLive, bfPhase, useNow } from '@/lib/blackFriday'
+import { bfPhase, useNow } from '@/lib/blackFriday'
 import BfCountdown from '@/components/BfCountdown'
 import DealPrice from '@/components/DealPrice'
 
@@ -19,8 +19,8 @@ function WaveText({ text }: { text: string }) {
   )
 }
 
-/** small "+ app access" line on the 6/8-week programs */
-function AppBonus({ text, className = '' }: { text: string; className?: string }) {
+/** small "+ training app included" label on the 6/8-week programs */
+function AppIncluded({ text, className = '' }: { text: string; className?: string }) {
   return (
     <span className={`inline-flex items-center gap-1.5 self-start whitespace-nowrap rounded-full border border-[#F59E0B]/30 bg-[#F59E0B]/10 px-2.5 py-1 font-body text-[11px] font-semibold text-[#F59E0B] ${className}`}>
       <Smartphone size={12} className="flex-shrink-0" aria-hidden="true" />
@@ -36,10 +36,9 @@ export default function PricingSection() {
   const phase = now ? bfPhase(now) : 'over'
   const bf = phase === 'live'
   const preBf = phase === 'pre'
-  const appBonus = now ? appBonusLive(now) : false
 
   type Row = {
-    label: string; desc?: string; freq: string; bonus?: boolean
+    label: string; desc?: string; freq: string; app?: boolean
     price: string; originalPrice?: string
     unit: string | null; highlight: boolean; badge: string | null
   }
@@ -51,7 +50,7 @@ export default function PricingSection() {
         {
           label: p.program1xLabel,
           desc: p.programDesc,
-          bonus: appBonus,
+          app: true,
           freq: bf ? p.bfTotals1x : p.program1xTotals,
           price: bf ? p.bfPrice1x : p.programPrice1x,
           originalPrice: bf ? p.programPrice1x : undefined,
@@ -60,7 +59,7 @@ export default function PricingSection() {
         {
           label: p.program2xLabel,
           desc: p.programDesc,
-          bonus: appBonus,
+          app: true,
           freq: bf ? p.bfTotals2x : p.program2xTotals,
           price: bf ? p.bfPrice2x : p.programPrice2x,
           originalPrice: bf ? p.programPrice2x : undefined,
@@ -170,7 +169,7 @@ export default function PricingSection() {
             <div className="min-w-0">
               <h3 className="font-heading font-bold text-2xl text-white mb-1.5">{p.featuredLabel}</h3>
               <p className="text-[#a3a3a3] font-body text-sm leading-relaxed max-w-sm">{p.featuredDesc}</p>
-              {appBonus && <AppBonus text={p.bfAppBonusShort} className="mt-3" />}
+              <AppIncluded text={p.appIncludedShort} className="mt-3" />
             </div>
             <div className="sm:text-right flex-shrink-0">
               <p className={`font-heading font-bold whitespace-nowrap flex items-baseline gap-2 sm:justify-end text-[#F59E0B]`}>
@@ -217,7 +216,7 @@ export default function PricingSection() {
                       )}
                     </div>
                     {row.desc && <span className="text-[#a3a3a3] font-body text-xs">{row.desc}</span>}
-                    {row.bonus && <AppBonus text={p.bfAppBonusShort} />}
+                    {row.app && <AppIncluded text={p.appIncludedShort} />}
                     <span className="text-[#666666] font-body text-xs">{row.freq}</span>
                   </div>
                   <div className={`font-heading font-bold whitespace-nowrap flex-shrink-0 text-right ${row.highlight ? 'text-[#F59E0B]' : 'text-white'}`}>
@@ -237,20 +236,19 @@ export default function PricingSection() {
         ))}
         <div className="mb-2" />
 
-        {/* Training-app bonus (Black Friday, can run longer: APP_BONUS_END) */}
-        {appBonus && (
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="flex gap-3 p-4 rounded-xl bg-[#F59E0B]/[0.06] border border-[#F59E0B]/25 mb-3"
-          >
-            <Smartphone size={15} className="text-[#F59E0B] flex-shrink-0 mt-0.5" />
-            <p className="font-body text-xs leading-relaxed text-[#aaaaaa]">
-              <span className="font-semibold text-white">{p.bfAppBonus}.</span> {p.bfAppBonusDetail}
-            </p>
-          </motion.div>
-        )}
+        {/* Training app: included with every 6/8-week program */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="flex gap-3 p-4 rounded-xl bg-[#F59E0B]/[0.06] border border-[#F59E0B]/25 mb-3"
+        >
+          <Smartphone size={15} className="text-[#F59E0B] flex-shrink-0 mt-0.5" />
+          <p className="font-body text-xs leading-relaxed text-[#aaaaaa]">
+            <span className="font-semibold text-white">{p.appIncluded}.</span> {p.appIncludedDetail}
+          </p>
+        </motion.div>
 
         {/* Gift voucher note (Black Friday only) */}
         {bf && (
